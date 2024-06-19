@@ -16,6 +16,24 @@
       "message": "Not sure why Gerrit is not showing it, but it seems that we have two `LICENSE` files in this change:\n```\n$ git ls-files| grep LICENSE\nLICENSE\nLICENSE.md\n```",
       "revId": "03799f26ae935443102bdf484b70b6c5b63acb09",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a07ab6d8_375a187b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2024-06-19T17:07:06Z",
+      "side": 1,
+      "message": "scratch it 😊 regardless of its name there was already a [commit](https://review.gerrithub.io/plugins/gitiles/GerritForge/ghs-actions-executor/+/4d5f572cd6987a3c2472d23317e1e66978272572) before and it already contains a `LICENSE` file. IMHO we should keep only one. WDYT?",
+      "parentUuid": "cc0dd2e8_0d52c277",
+      "revId": "03799f26ae935443102bdf484b70b6c5b63acb09",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
