@@ -28,7 +28,8 @@ junit_tests(
     srcs = glob(["src/test/java/**/*.java"]),
     deps = [
         ":ghs-actions-executor_lib",
-    ] + PLUGIN_DEPS + PLUGIN_TEST_DEPS,
+        "//lib/truth",
+    ] + PLUGIN_DEPS,
 )
 
 java_library(
