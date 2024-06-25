@@ -3,7 +3,6 @@ load("//tools/bzl:junit.bzl", "junit_tests")
 load(
     "//tools/bzl:plugin.bzl",
     "PLUGIN_DEPS",
-    "PLUGIN_TEST_DEPS",
 )
 
 genrule(
@@ -28,7 +27,8 @@ junit_tests(
     srcs = glob(["src/test/java/**/*.java"]),
     deps = [
         ":ghs-actions-executor_lib",
-    ] + PLUGIN_DEPS + PLUGIN_TEST_DEPS,
+        "//lib/truth",
+    ] + PLUGIN_DEPS,
 )
 
 java_library(
