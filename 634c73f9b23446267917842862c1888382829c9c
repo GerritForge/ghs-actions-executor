@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f7f3d77_733cd84d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2024-06-25T17:56:59Z",
+      "side": 1,
+      "message": "Seems to obuild when running `make -f plugins/ghs-actions-executor/Makefile` from Gerrit\u0027s tree",
+      "revId": "634c73f9b23446267917842862c1888382829c9c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
