@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98c4cd67_5408613d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2024-06-27T14:52:46Z",
+      "side": 1,
+      "message": "Verified locally with:\n\n```\nbazelisk test //plugins/ghs-actions-executor_test/...\n\nINFO: Found 1 test target...\nTarget //plugins/ghs-actions-executor:ghs-actions-executor_test up-to-date:\n  bazel-bin/plugins/ghs-actions-executor/ghs-actions-executor_test\n  bazel-bin/plugins/ghs-actions-executor/ghs-actions-executor_test.jar\nINFO: Elapsed time: 29.188s, Critical Path: 26.41s\nINFO: 626 processes: 487 disk cache hit, 6 internal, 63 darwin-sandbox, 70 worker.\nINFO: Build completed successfully, 626 total actions\n//plugins/ghs-actions-executor:ghs-actions-executor_test                 PASSED in 1.1s\n\n```",
+      "revId": "01d71aebafba3f41b6c750ca74dad1c745a8e19c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
