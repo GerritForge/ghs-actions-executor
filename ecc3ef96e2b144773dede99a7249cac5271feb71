@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c68ef9c_30a571b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2025-02-07T17:14:08Z",
+      "side": 1,
+      "message": "Verified locally:\n\n```\n-rw-r--r--@ 1 syntonyze  staff  125374 Feb  7 18:10 000000000001-000000000463-31424b77.ref\n-rw-r--r--@ 1 syntonyze  staff     444 Feb  7 18:12 000000000464-000000000465-711a6f94.ref\n-rw-r--r--@ 1 syntonyze  staff     321 Feb  7 18:12 000000000466-000000000466-15ffac8d.ref\n-rw-r--r--@ 1 syntonyze  staff     117 Feb  7 18:12 tables.list\n```\n\nRun executor\n\n```\njava -jar bazel-bin/plugins/ghs-actions-executor/ghs-actions-executor.jar -v PackRefsAction /Users/syntonyze/ginstall/gerrit-3.10.3-reftable.fix/git/ghs-reftable.git\n```\n\nrefs are compacted:\n\n```\n-rw-r--r--@ 1 syntonyze  staff  125502 Feb  7 18:13 000000000001-000000000466-a591e4d6.ref\n-rw-r--r--@ 1 syntonyze  staff      39 Feb  7 18:13 tables.list\n```",
+      "revId": "ecc3ef96e2b144773dede99a7249cac5271feb71",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
