@@ -38,10 +38,8 @@ public class PackRefsAction implements Action {
       RefDatabase refDb = repo.getRefDatabase();
 
       if (refDb instanceof FileReftableDatabase) {
-        return new ActionResult(
-            false,
-            String.format(
-                "Ref-table of repository %s is not supported yet for repacking", repositoryPath));
+          ((FileReftableDatabase) refDb).compactFully();
+        return new ActionResult(true);
       }
 
       Collection<Ref> refs = refDb.getRefsByPrefix(Constants.R_REFS);
