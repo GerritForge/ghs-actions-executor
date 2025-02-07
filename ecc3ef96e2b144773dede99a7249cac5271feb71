@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1f2bc17_7b9fb9e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2025-02-07T23:27:12Z",
+      "side": 1,
+      "message": "In reality we\u0027re skipping repacking on ref-table?\nMaybe \"Support\"? with a small explanation of why we\u0027re skipping it?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 6
+      },
+      "revId": "ecc3ef96e2b144773dede99a7249cac5271feb71",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "7c68ef9c_30a571b2",
