@@ -24,6 +24,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "db11a9b9_3dbe1d0e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2025-02-09T19:00:52Z",
+      "side": 1,
+      "message": "mmmh, not sure we should make any assumptions here @danielesassoli@gmail.com: it is not our role to determine which actions GHS will choose.\n\nIf the action of repacking does not lead to significant performance improvements, it will result in a small reward.\n\nConsequently, the reinforcement learning algorithm will be less likely to select this action in the future.",
+      "parentUuid": "b1f2bc17_7b9fb9e1",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 6
+      },
+      "revId": "ecc3ef96e2b144773dede99a7249cac5271feb71",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "7c68ef9c_30a571b2",
