@@ -134,6 +134,30 @@
       },
       "revId": "ecc3ef96e2b144773dede99a7249cac5271feb71",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93c71d79_120b96d0",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/PackRefsAction.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2025-02-09T21:02:26Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "90b2880e_748df3b1",
+      "range": {
+        "startLine": 42,
+        "startChar": 32,
+        "endLine": 42,
+        "endChar": 36
+      },
+      "revId": "ecc3ef96e2b144773dede99a7249cac5271feb71",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
