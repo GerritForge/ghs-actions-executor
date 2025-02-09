@@ -110,6 +110,30 @@
       },
       "revId": "ecc3ef96e2b144773dede99a7249cac5271feb71",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90b2880e_748df3b1",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/PackRefsAction.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2025-02-09T20:57:08Z",
+      "side": 1,
+      "message": "Yes, `compactFully()` will throw an IOException if it fails.\n\nHowever, this exception is already handled by the `catch` block starting at line 54. So when an `IOException` occurs, it returns a failing `ActionResult`, as shown on lines 58–59.",
+      "parentUuid": "35452c10_63fcc703",
+      "range": {
+        "startLine": 42,
+        "startChar": 32,
+        "endLine": 42,
+        "endChar": 36
+      },
+      "revId": "ecc3ef96e2b144773dede99a7249cac5271feb71",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
