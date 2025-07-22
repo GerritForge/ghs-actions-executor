@@ -40,4 +40,26 @@ public class BitmapGenerationActionTest extends GitActionTest {
     assertThat(new BitmapGenerationAction().apply(testRepoPath.toString()).isSuccessful()).isTrue();
     assertThat(bitmapFile.exists()).isTrue();
   }
+
+  @Test
+  public void applyBitmapGenerationActionShouldGenerateLog() throws Exception {
+    pushNewCommitToBranch();
+    Optional<Path> packFile =
+        Files.list(testRepoPath.resolve("objects/pack"))
+            .filter(p -> p.toString().endsWith(".pack"))
+            .findFirst();
+    assertThat(packFile).isPresent();
+    Path packsLogPath = packFile.get().getParent().resolve("packs.log");
+    File packsLogFile = packsLogPath.toFile();
+    assertThat(packsLogFile.exists()).isFalse();
+
+    assertThat(new BitmapGenerationAction().apply(testRepoPath.toString()).isSuccessful()).isTrue();
+    assertThat(packsLogFile.exists()).isTrue();
+
+    String packFilename = packFile.get().getFileName().toString();
+    String packId =
+        packFilename.substring("pack-".length(), packFilename.length() - ".pack".length());
+    assertThat(Files.readAllLines(packsLogPath).stream().anyMatch(log -> log.equals(packId)))
+        .isTrue();
+  }
 }

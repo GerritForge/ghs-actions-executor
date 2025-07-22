@@ -17,15 +17,23 @@ package com.gerritforge.ghs.actions;
 import com.google.common.flogger.FluentLogger;
 import java.io.File;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.Collection;
 import org.eclipse.jgit.internal.storage.file.FileRepository;
+import org.eclipse.jgit.internal.storage.file.Pack;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 public class BitmapGenerationAction implements Action {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-  public void prepareBitmap(FileRepository repo) throws IOException {
+  public Collection<Pack> prepareBitmap(FileRepository repo) throws IOException {
     BitmapGenerator repack = new BitmapGenerator(repo, isVerbose());
-    repack.repackAndGenerateBitmap();
+    return repack.repackAndGenerateBitmap();
   }
 
   @Override
@@ -37,7 +45,8 @@ public class BitmapGenerationAction implements Action {
             .findGitDir();
 
     try (FileRepository repository = (FileRepository) repositoryBuilder.build()) {
-      prepareBitmap(repository);
+      Collection<Pack> packFiles = prepareBitmap(repository);
+      updatePackFilesLog(packFiles, repositoryPath);
     } catch (IOException e) {
       logger.atSevere().withCause(e).log(
           "Bitmap generation failed for the repository path %s", repositoryPath);
@@ -46,5 +55,32 @@ public class BitmapGenerationAction implements Action {
     }
 
     return new ActionResult(true);
+  }
+
+  private void updatePackFilesLog(Collection<Pack> packfiles, String repositoryPath)
+      throws IOException {
+    if (packfiles.isEmpty()) {
+      return;
+    }
+
+    Path logPath = Path.of(repositoryPath, "objects", "pack", "packs.log");
+    try (FileChannel channel =
+            FileChannel.open(
+                logPath,
+                StandardOpenOption.CREATE,
+                StandardOpenOption.WRITE,
+                StandardOpenOption.APPEND);
+        FileLock lock = channel.lock()) {
+      for (Pack packFile : packfiles) {
+        byte[] packBytes =
+            String.format("%s%s", packFile.getPackName(), System.lineSeparator())
+                .getBytes(StandardCharsets.UTF_8);
+        ByteBuffer buffer = ByteBuffer.wrap(packBytes);
+        while (buffer.hasRemaining()) {
+          channel.write(buffer);
+        }
+      }
+      channel.force(true);
+    }
   }
 }
