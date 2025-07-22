@@ -17,9 +17,13 @@ package com.gerritforge.ghs.actions;
 import static com.google.common.truth.Truth.assertThat;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.Stream;
+import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
 import org.junit.Test;
 
@@ -39,5 +43,64 @@ public class BitmapGenerationActionTest extends GitActionTest {
 
     assertThat(new BitmapGenerationAction().apply(testRepoPath.toString()).isSuccessful()).isTrue();
     assertThat(bitmapFile.exists()).isTrue();
+  }
+
+  @Test
+  public void applyBitmapGenerationActionShouldGenerateLog() throws Exception {
+    pushNewCommitToBranch();
+    Optional<Path> packFile =
+        Files.list(testRepoPath.resolve("objects/pack"))
+            .filter(p -> p.toString().endsWith(".pack"))
+            .findFirst();
+
+    Path bitmapsLogPath = packFile.get().getParent().resolve(".ghs-packs.log");
+    File bitmapsLogFile = bitmapsLogPath.toFile();
+    assertThat(bitmapsLogFile.exists()).isFalse();
+
+    assertThat(new BitmapGenerationAction().apply(testRepoPath.toString()).isSuccessful()).isTrue();
+    assertThat(bitmapsLogFile.exists()).isTrue();
+
+    String packFilename = packFile.get().getFileName().toString();
+    String packId =
+        packFilename.substring("pack-".length(), packFilename.length() - ".pack".length());
+    assertThat(
+            logEntries(bitmapsLogPath)
+                .anyMatch(id -> ObjectId.fromRaw(id).getName().equals(packId)))
+        .isTrue();
+  }
+
+  @Test
+  public void applyBitmapGenerationActionShouldUpdateLog() throws Exception {
+    pushNewCommitToBranch();
+    Optional<Path> packFile =
+        Files.list(testRepoPath.resolve("objects/pack"))
+            .filter(p -> p.toString().endsWith(".pack"))
+            .findFirst();
+
+    Path bitmapsLogPath = packFile.get().getParent().resolve(".ghs-packs.log");
+    File bitmapsLogFile = bitmapsLogPath.toFile();
+    assertThat(bitmapsLogFile.exists()).isFalse();
+
+    assertThat(new BitmapGenerationAction().apply(testRepoPath.toString()).isSuccessful()).isTrue();
+    assertThat(bitmapsLogFile.exists()).isTrue();
+
+    pushNewCommitToBranch();
+    assertThat(new BitmapGenerationAction().apply(testRepoPath.toString()).isSuccessful()).isTrue();
+    assertThat(logEntries(bitmapsLogPath).count()).isEqualTo(2L);
+  }
+
+  private Stream<byte[]> logEntries(Path logPath) throws IOException {
+    byte[] content = Files.readAllBytes(logPath);
+    int chunkSize = 20;
+    if (content.length < chunkSize || content.length % chunkSize != 0) {
+      return Stream.empty();
+    }
+
+    return Stream.iterate(0, i -> i < content.length, i -> i + chunkSize)
+        .map(
+            i -> {
+              int end = Math.min(i + chunkSize, content.length);
+              return Arrays.copyOfRange(content, i, end);
+            });
   }
 }
