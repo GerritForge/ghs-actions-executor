@@ -18,10 +18,7 @@ import com.google.common.flogger.FluentLogger;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
-import java.nio.channels.FileLock;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.util.Collection;
 import org.eclipse.jgit.internal.storage.file.FileRepository;
 import org.eclipse.jgit.internal.storage.file.Pack;
@@ -64,24 +61,18 @@ public class BitmapGenerationAction implements Action {
       return;
     }
 
-    Path logPath = objectsPath.resolve("pack").resolve(".ghs-packs.log");
-    try (FileChannel channel =
-            FileChannel.open(
-                logPath,
-                StandardOpenOption.CREATE,
-                StandardOpenOption.WRITE,
-                StandardOpenOption.APPEND);
-        FileLock lock = channel.lock()) {
-      for (Pack packFile : packfiles) {
-        ObjectId id = ObjectId.fromString(packFile.getPackName());
-        ByteBuffer buffer = ByteBuffer.allocate(ID_LENGTH);
-        id.copyRawTo(buffer);
-        buffer.flip();
-        while (buffer.hasRemaining()) {
-          channel.write(buffer);
-        }
-      }
-      channel.force(true);
-    }
+    BitmapGenerationLog.update(
+        objectsPath,
+        (channel) -> {
+          for (Pack packFile : packfiles) {
+            ObjectId id = ObjectId.fromString(packFile.getPackName());
+            ByteBuffer buffer = ByteBuffer.allocate(ID_LENGTH);
+            id.copyRawTo(buffer);
+            buffer.flip();
+            while (buffer.hasRemaining()) {
+              channel.write(buffer);
+            }
+          }
+        });
   }
 }
