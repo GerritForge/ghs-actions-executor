@@ -1,0 +1,222 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acb75dd8_b35bf5c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2025-07-24T09:39:37Z",
+      "side": 1,
+      "message": "and its related packfile",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 6
+      },
+      "revId": "6f243e3668f42896716d3a3b27f64865f3b8bf8d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec7e8a43_fa8b8315",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2025-07-24T09:39:37Z",
+      "side": 1,
+      "message": "and their related packfiles",
+      "range": {
+        "startLine": 13,
+        "startChar": 26,
+        "endLine": 13,
+        "endChar": 38
+      },
+      "revId": "6f243e3668f42896716d3a3b27f64865f3b8bf8d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e67beca8_94c50995",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2025-07-24T09:39:37Z",
+      "side": 1,
+      "message": "and also, crucially, speed up git operations, such as search for reuse.",
+      "range": {
+        "startLine": 13,
+        "startChar": 56,
+        "endLine": 14,
+        "endChar": 25
+      },
+      "revId": "6f243e3668f42896716d3a3b27f64865f3b8bf8d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e95c49eb_8c1296da",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2025-07-24T09:39:37Z",
+      "side": 1,
+      "message": "Related-to: #157",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 14
+      },
+      "revId": "6f243e3668f42896716d3a3b27f64865f3b8bf8d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "573c7249_d2a6ee48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2025-07-24T09:39:37Z",
+      "side": 1,
+      "message": "I think this is going the right direction @geminica.programs@gmail.com 👍",
+      "revId": "6f243e3668f42896716d3a3b27f64865f3b8bf8d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a29f024_14c38d94",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationAction.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2025-07-24T09:39:37Z",
+      "side": 1,
+      "message": "Since the current logic is tightly coupled with the bitmap generation and the upcoming pruning logic, perhaps we could use a more descriptive name here, like \"bitmapActionGeneratedPackfiles\", WDYT?",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 84
+      },
+      "revId": "6f243e3668f42896716d3a3b27f64865f3b8bf8d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddf234ed_d793d491",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationAction.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2025-07-24T09:39:37Z",
+      "side": 1,
+      "message": "nit: Could this be done starting already from the `objectsDirectory`. \n\n```\nPath logPath \u003d repo.getObjectsDirectory().toPath().resolve(\"pack\").resolve(\"packs.log\");\n```",
+      "revId": "6f243e3668f42896716d3a3b27f64865f3b8bf8d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3fcf561_c300ee98",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationAction.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2025-07-24T09:39:37Z",
+      "side": 1,
+      "message": "Is this log file going to grow indefinitely?",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 32
+      },
+      "revId": "6f243e3668f42896716d3a3b27f64865f3b8bf8d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "888e7af1_52720b81",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/BitmapGenerationActionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2025-07-24T09:39:37Z",
+      "side": 1,
+      "message": "Is this assertion necessary since we just found the file on disk?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 37
+      },
+      "revId": "6f243e3668f42896716d3a3b27f64865f3b8bf8d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a50f351_5e8f9122",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/BitmapGenerationActionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2025-07-24T09:39:37Z",
+      "side": 1,
+      "message": "Can you add a test that covers the behaviour when the pack.log exists already?",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 48
+      },
+      "revId": "6f243e3668f42896716d3a3b27f64865f3b8bf8d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
