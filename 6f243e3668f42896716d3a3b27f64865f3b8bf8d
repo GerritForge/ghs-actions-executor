@@ -24,6 +24,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6cb492b_258e2de5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2025-07-25T13:54:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acb75dd8_b35bf5c2",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 6
+      },
+      "revId": "6f243e3668f42896716d3a3b27f64865f3b8bf8d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ec7e8a43_fa8b8315",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-07-24T09:39:37Z",
       "side": 1,
       "message": "and their related packfiles",
+      "range": {
+        "startLine": 13,
+        "startChar": 26,
+        "endLine": 13,
+        "endChar": 38
+      },
+      "revId": "6f243e3668f42896716d3a3b27f64865f3b8bf8d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d947579_cdcb5e61",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2025-07-25T13:54:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec7e8a43_fa8b8315",
       "range": {
         "startLine": 13,
         "startChar": 26,
@@ -70,6 +118,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6319fb70_164aa37e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2025-07-25T13:54:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e67beca8_94c50995",
+      "range": {
+        "startLine": 13,
+        "startChar": 56,
+        "endLine": 14,
+        "endChar": 25
+      },
+      "revId": "6f243e3668f42896716d3a3b27f64865f3b8bf8d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e95c49eb_8c1296da",
@@ -83,6 +155,30 @@
       "writtenOn": "2025-07-24T09:39:37Z",
       "side": 1,
       "message": "Related-to: #157",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 14
+      },
+      "revId": "6f243e3668f42896716d3a3b27f64865f3b8bf8d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "449330c4_0e1e43b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2025-07-25T13:54:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e95c49eb_8c1296da",
       "range": {
         "startLine": 19,
         "startChar": 0,
@@ -133,6 +229,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7e753bc_a69b8cc5",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationAction.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2025-07-25T13:54:46Z",
+      "side": 1,
+      "message": "Renamed to `updateBitmapGenerationLog` to better reflect its purpose",
+      "parentUuid": "7a29f024_14c38d94",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 84
+      },
+      "revId": "6f243e3668f42896716d3a3b27f64865f3b8bf8d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ddf234ed_d793d491",
@@ -150,6 +270,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6fc328d_59835549",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationAction.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2025-07-25T13:54:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ddf234ed_d793d491",
+      "revId": "6f243e3668f42896716d3a3b27f64865f3b8bf8d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3fcf561_c300ee98",
@@ -163,6 +301,30 @@
       "writtenOn": "2025-07-24T09:39:37Z",
       "side": 1,
       "message": "Is this log file going to grow indefinitely?",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 32
+      },
+      "revId": "6f243e3668f42896716d3a3b27f64865f3b8bf8d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b6cfb8c_88775381",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationAction.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2025-07-25T13:54:46Z",
+      "side": 1,
+      "message": "Basically yes, but one entry is `41B` hence it means that 1 mln entries would consume `328 MB`, should we worry about it then? WDYT?",
+      "parentUuid": "b3fcf561_c300ee98",
       "range": {
         "startLine": 80,
         "startChar": 0,
@@ -196,6 +358,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0e4333a_4b27e827",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/BitmapGenerationActionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2025-07-25T13:54:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "888e7af1_52720b81",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 37
+      },
+      "revId": "6f243e3668f42896716d3a3b27f64865f3b8bf8d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a50f351_5e8f9122",
@@ -209,6 +395,30 @@
       "writtenOn": "2025-07-24T09:39:37Z",
       "side": 1,
       "message": "Can you add a test that covers the behaviour when the pack.log exists already?",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 48
+      },
+      "revId": "6f243e3668f42896716d3a3b27f64865f3b8bf8d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e818b38_f1974236",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/BitmapGenerationActionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2025-07-25T13:54:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a50f351_5e8f9122",
       "range": {
         "startLine": 54,
         "startChar": 0,
