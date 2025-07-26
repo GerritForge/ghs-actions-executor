@@ -14,11 +14,24 @@
 
 package com.gerritforge.ghs.actions;
 
+import com.google.common.flogger.FluentLogger;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UncheckedIOException;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
+import java.nio.file.AtomicMoveNotSupportedException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
+import java.util.Optional;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 class BitmapGenerationLog {
   @FunctionalInterface
@@ -26,8 +39,17 @@ class BitmapGenerationLog {
     void writeContent(FileChannel channel) throws IOException;
   }
 
+  @FunctionalInterface
+  interface Reader<T> {
+    T read(Stream<BytesChunk> chunks) throws IOException;
+  }
+
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+  private static final String GHS_PACKS_LOG = ".ghs-packs.log";
+  static final long ID_LENGTH = 20L;
+
   static void update(Path objectsPath, Updater updater) throws IOException {
-    Path logPath = objectsPath.resolve("pack").resolve(".ghs-packs.log");
+    Path logPath = objectsPath.resolve("pack").resolve(GHS_PACKS_LOG);
     try (FileChannel channel =
             FileChannel.open(
                 logPath,
@@ -39,6 +61,95 @@ class BitmapGenerationLog {
       channel.force(true);
     }
   }
+
+  static Optional<Path> snapshotLog(String repositoryPath) throws IOException {
+    Path logPath = logPath(repositoryPath);
+    if (!logPath.toFile().exists()) {
+      logger.atInfo().log("No packs.log file found at [%s]; skipping snapshot", logPath);
+      return Optional.empty();
+    }
+
+    Path snapshotPath =
+        logPath
+            .getParent()
+            .resolve(String.format("packs.log.%d.snapshot", System.currentTimeMillis()));
+    try (FileChannel channel =
+            FileChannel.open(logPath, StandardOpenOption.READ, StandardOpenOption.WRITE);
+        FileLock lock = channel.lock()) {
+      move(logPath, snapshotPath);
+    }
+
+    return Optional.of(snapshotPath);
+  }
+
+  static FileChannel openLogChannel(String repositoryPath) throws IOException {
+    Path logPath = logPath(repositoryPath);
+    FileChannel channel =
+        FileChannel.open(
+            logPath, StandardOpenOption.CREATE, StandardOpenOption.READ, StandardOpenOption.WRITE);
+    return channel;
+  }
+
+  static Path logPath(String repositoryPath) {
+    return Path.of(repositoryPath, "objects", "pack", GHS_PACKS_LOG);
+  }
+
+  static <T> T read(Path fileToRead, Reader<T> reader) throws IOException {
+    try (FileChannel channel =
+            FileChannel.open(fileToRead, StandardOpenOption.READ, StandardOpenOption.WRITE);
+        InputStream input = Channels.newInputStream(channel);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(input));
+        FileLock lock = channel.lock()) {
+      long fileSize = channel.size();
+      long totalChunks = fileSize / ID_LENGTH;
+
+      Stream<BytesChunk> chunks =
+          LongStream.rangeClosed(0, totalChunks)
+              .mapToObj(
+                  index -> {
+                    try {
+                      long position = ID_LENGTH * index;
+                      long size = Math.min(ID_LENGTH, fileSize - position);
+
+                      MappedByteBuffer buffer =
+                          channel.map(FileChannel.MapMode.READ_ONLY, position, size);
+                      boolean isLast = index == totalChunks - 1;
+                      boolean isSecondToLast = index == totalChunks - 2;
+
+                      byte[] chunk = new byte[(int) size];
+                      buffer.get(chunk);
+                      return new BytesChunk(chunk, isLast, isSecondToLast);
+                    } catch (IOException e) {
+                      logger.atSevere().withCause(e).log("Reading chunks failed.");
+                      throw new UncheckedIOException(e);
+                    }
+                  });
+      return reader.read(chunks);
+    }
+  }
+
+  static void move(Path source, Path target) throws IOException {
+    if (Files.exists(source)) {
+      try {
+        Files.move(source, target, StandardCopyOption.ATOMIC_MOVE);
+      } catch (AtomicMoveNotSupportedException e) {
+        Files.move(source, target);
+      }
+    }
+  }
+
+  static void moveWithReplace(Path source, Path target) throws IOException {
+    if (Files.exists(source)) {
+      try {
+        Files.move(
+            source, target, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
+      } catch (AtomicMoveNotSupportedException e) {
+        Files.move(source, target, StandardCopyOption.REPLACE_EXISTING);
+      }
+    }
+  }
+
+  record BytesChunk(byte[] data, boolean isLast, boolean isSecondToLast) {}
 
   private BitmapGenerationLog() {}
 }
