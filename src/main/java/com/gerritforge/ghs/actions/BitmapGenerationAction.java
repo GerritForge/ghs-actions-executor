@@ -27,7 +27,6 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 public class BitmapGenerationAction implements Action {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-  private static final int ID_LENGTH = 20;
 
   public Collection<Pack> prepareBitmap(FileRepository repo) throws IOException {
     BitmapGenerator repack = new BitmapGenerator(repo, isVerbose());
@@ -66,7 +65,7 @@ public class BitmapGenerationAction implements Action {
         (channel) -> {
           for (Pack packFile : packfiles) {
             ObjectId id = ObjectId.fromString(packFile.getPackName());
-            ByteBuffer buffer = ByteBuffer.allocate(ID_LENGTH);
+            ByteBuffer buffer = ByteBuffer.allocate((int) BitmapGenerationLog.ID_LENGTH);
             id.copyRawTo(buffer);
             buffer.flip();
             while (buffer.hasRemaining()) {
