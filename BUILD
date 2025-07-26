@@ -35,6 +35,7 @@ java_library(
     name = "ghs-actions-executor_lib",
     srcs = glob(["src/main/java/**/*.java"]),
     deps = [
+        "//lib/errorprone:annotations",
         "//lib:gson",
         "//lib:jgit",
         "//lib/flogger:api",
