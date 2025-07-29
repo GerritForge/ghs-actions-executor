@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "854a10d3_263ae935",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-07-29T05:25:04Z",
+      "side": 1,
+      "message": "LGTM, but I\u0027d keep the packfiles\u0027 names as binary, instead of the double-encoding to `UTF8`, which is pretty unnatural for a filename composed by an ObjectId.",
+      "revId": "14d5d4d61f24945e968b7fc02cd5a39fb954549c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47c1483a_f762e801",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationAction.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-07-29T05:25:04Z",
+      "side": 1,
+      "message": "Shall we give a prefix more representative that this file is associated with ghs? Also these files should be prevented from being removed as potential garbage by other tools, so it would be best to be prefixed by `.`.\n\n```suggestion\n    Path logPath \u003d objectsPath.resolve(\"pack\").resolve(\".ghs-packs.log\");\n```",
+      "range": {
+        "startLine": 66,
+        "startChar": 56,
+        "endLine": 66,
+        "endChar": 61
+      },
+      "revId": "14d5d4d61f24945e968b7fc02cd5a39fb954549c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07eb3fe5_ef38a2f8",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationAction.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-07-29T05:25:04Z",
+      "side": 1,
+      "message": "The packfile name is an ObjectId, therefore can be simply decoded directly into a set of 4 ints.",
+      "range": {
+        "startLine": 76,
+        "startChar": 34,
+        "endLine": 76,
+        "endChar": 56
+      },
+      "revId": "14d5d4d61f24945e968b7fc02cd5a39fb954549c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19a41aa3_38775e05",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationAction.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-07-29T05:25:04Z",
+      "side": 1,
+      "message": "There\u0027s no need to through a charset encoding: the packfiles names are binary already, we can simply terminate with a `\\0` to separate them and keep them as binary.",
+      "range": {
+        "startLine": 77,
+        "startChar": 16,
+        "endLine": 77,
+        "endChar": 50
+      },
+      "revId": "14d5d4d61f24945e968b7fc02cd5a39fb954549c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}

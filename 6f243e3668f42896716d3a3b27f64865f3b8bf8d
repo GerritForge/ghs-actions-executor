@@ -337,6 +337,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7036a62c_ffceae54",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationAction.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-07-29T05:25:04Z",
+      "side": 1,
+      "message": "A packfile is 16 bytes + 1 termination \u003d 17 bytes.\nA repository with 1M packfiles will already be close to death, and this file would just contain 17 MBytes, which is pretty small.\n\nI believe the intention is to remove this file once we execute the pruning (aka moving the associated packfiles to the `/preserved` directory)",
+      "parentUuid": "1b6cfb8c_88775381",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 32
+      },
+      "revId": "6f243e3668f42896716d3a3b27f64865f3b8bf8d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "888e7af1_52720b81",
         "filename": "src/test/java/com/gerritforge/ghs/actions/BitmapGenerationActionTest.java",
         "patchSetId": 1
