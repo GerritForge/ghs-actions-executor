@@ -41,6 +41,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4815e0f5_89f3b03a",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationAction.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2025-08-01T06:42:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47c1483a_f762e801",
+      "range": {
+        "startLine": 66,
+        "startChar": 56,
+        "endLine": 66,
+        "endChar": 61
+      },
+      "revId": "14d5d4d61f24945e968b7fc02cd5a39fb954549c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07eb3fe5_ef38a2f8",
@@ -66,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "448140b0_0e3f14f7",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationAction.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2025-08-01T06:42:38Z",
+      "side": 1,
+      "message": "The thing is that I can\u0027t see any function on either `Pack` or the underlying `PackFile` to return it 😞 IOW it means that would have to do the following to store it:\n```\n        ObjectId id \u003d ObjectId.fromString(packFile.getPackName());\n        ByteBuffer buffer \u003d ByteBuffer.allocate(21);\n        id.copyRawTo(buffer);\n```\n\nwhich is not the worst. IMHO the thing that we loose is the ability to correlate of what is in the log vs the file system as it would be binary format that cannot be easily examined. If that is fine then we could proceed with the improvement...",
+      "parentUuid": "07eb3fe5_ef38a2f8",
+      "range": {
+        "startLine": 76,
+        "startChar": 34,
+        "endLine": 76,
+        "endChar": 56
+      },
+      "revId": "14d5d4d61f24945e968b7fc02cd5a39fb954549c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "19a41aa3_38775e05",
         "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationAction.java",
         "patchSetId": 2
@@ -77,6 +125,30 @@
       "writtenOn": "2025-07-29T05:25:04Z",
       "side": 1,
       "message": "There\u0027s no need to through a charset encoding: the packfiles names are binary already, we can simply terminate with a `\\0` to separate them and keep them as binary.",
+      "range": {
+        "startLine": 77,
+        "startChar": 16,
+        "endLine": 77,
+        "endChar": 50
+      },
+      "revId": "14d5d4d61f24945e968b7fc02cd5a39fb954549c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b32285f_94aeb4aa",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationAction.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2025-08-01T06:42:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "19a41aa3_38775e05",
       "range": {
         "startLine": 77,
         "startChar": 16,

@@ -361,6 +361,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "026e1f66_78f62cd0",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationAction.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2025-08-01T06:42:38Z",
+      "side": 1,
+      "message": "AFAICT packfile is 20 bytes\n```\n/**\n\t * Convert an ObjectId from raw binary representation.\n\t *\n\t * @param bs\n\t *            the raw byte buffer to read from. At least 20 bytes after p\n\t *            must be available within this byte array.\n\t * @param p\n\t *            position to read the first byte of data from.\n\t * @return the converted object id.\n\t */\n\tpublic static final ObjectId fromRaw(byte[] bs, int p) {\n\t\tfinal int a \u003d NB.decodeInt32(bs, p);\n\t\tfinal int b \u003d NB.decodeInt32(bs, p + 4);\n\t\tfinal int c \u003d NB.decodeInt32(bs, p + 8);\n\t\tfinal int d \u003d NB.decodeInt32(bs, p + 12);\n\t\tfinal int e \u003d NB.decodeInt32(bs, p + 16);\n\t\treturn new ObjectId(a, b, c, d, e);\n\t}\n```\nbut sure it can be serialized and deserialized as binary we would have 21MB vs 41MB for 1m entries still halve of the original size...",
+      "parentUuid": "7036a62c_ffceae54",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 32
+      },
+      "revId": "6f243e3668f42896716d3a3b27f64865f3b8bf8d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "888e7af1_52720b81",
         "filename": "src/test/java/com/gerritforge/ghs/actions/BitmapGenerationActionTest.java",
         "patchSetId": 1
