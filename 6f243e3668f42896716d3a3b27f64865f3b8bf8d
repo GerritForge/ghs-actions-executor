@@ -409,6 +409,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6be83bc2_69a43303",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationAction.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-08-01T08:51:38Z",
+      "side": 1,
+      "message": "\u003e Out of curiosity, have you considered the option of not having a log file at all?\n\u003e \n\u003e In many contexts, packfiles have **files** associated to them: `.idx`, `.rev`, `.bitmap`. Some of these are also used as **markers**, think `.keep`, for example.\n\nI thought about it, but that means potentially exploding the number of files even further and, potentially, blowing up the file descriptors.\n\nBest to keep them in a single file IMHO.",
+      "parentUuid": "7349fa35_640d7e14",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 32
+      },
+      "revId": "6f243e3668f42896716d3a3b27f64865f3b8bf8d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "888e7af1_52720b81",
         "filename": "src/test/java/com/gerritforge/ghs/actions/BitmapGenerationActionTest.java",
         "patchSetId": 1

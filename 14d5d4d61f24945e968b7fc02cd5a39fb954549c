@@ -114,6 +114,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d0fcbd4b_c3f0bac7",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationAction.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-08-01T08:51:38Z",
+      "side": 1,
+      "message": "As long as there is a defined binary coding scheme, you can correlate it.",
+      "parentUuid": "448140b0_0e3f14f7",
+      "range": {
+        "startLine": 76,
+        "startChar": 34,
+        "endLine": 76,
+        "endChar": 56
+      },
+      "revId": "14d5d4d61f24945e968b7fc02cd5a39fb954549c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "19a41aa3_38775e05",
         "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationAction.java",
         "patchSetId": 2
