@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6b5b2da0_203a6a05",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/Main.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2025-08-04T20:44:26Z",
+      "side": 1,
+      "message": "True, however my concern was around opening/closing and deleting a file every single time we run an action.\n\nI guess we\u0027re already doing it, so maybe it\u0027s fine. Let\u0027s catch-up at stand-up tomorrow.",
+      "parentUuid": "10406847_a6117852",
+      "revId": "ddb6d4067a8266b8d08964e2607d01aa81dd217a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e54dbdcb_dbf13ca5",
         "filename": "src/main/java/com/gerritforge/ghs/actions/Main.java",
         "patchSetId": 3
