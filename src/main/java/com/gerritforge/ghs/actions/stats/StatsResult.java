@@ -31,6 +31,10 @@ public class StatsResult {
     return executionTime;
   }
 
+  public String toJson() {
+    return String.format("{\"cpuTime\":%d, \"executionTime\":%d}", cpuTime, executionTime);
+  }
+
   @Override
   public String toString() {
     return String.format("StatsResult{cpuTime=%d, executionTime=%d}", cpuTime, executionTime);

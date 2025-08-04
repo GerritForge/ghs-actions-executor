@@ -57,6 +57,7 @@ public class Main {
       logger.atInfo().log("%s", statsResult.toString());
 
       persistExecutionResult(new ExecutionResult(result, statsResult), outputPath);
+      System.out.println(statsResult.toJson());
     } catch (ClassNotFoundException e) {
       logger.atSevere().withCause(e).log("Cannot find action class for action name:%s", action);
     } catch (InstantiationException | IllegalAccessException e) {
@@ -68,22 +69,20 @@ public class Main {
   }
 
   private static void printUse() {
-    String msgFormat =
-        String.format(
-            "Use: java %%s <actionName> <repositoryPath> (outputFile)\n"
-                + "\n\t-v - enable verbose logging"
-                + "\n\toutputFile - file to store the JSON output (defaults to: %s)",
-            defaultOutputLocation("$PID"));
+    String msgFormat = String.format(
+        "Use: java %%s <actionName> <repositoryPath> (outputFile)\n"
+            + "\n\t-v - enable verbose logging"
+            + "\n\toutputFile - file to store the JSON output (defaults to: %s)",
+        defaultOutputLocation("$PID"));
     logger.atInfo().log(msgFormat, Main.class.getName());
     System.err.printf(msgFormat + "%n", Main.class.getName());
   }
 
   private static void persistExecutionResult(ExecutionResult result, String outputPath)
       throws IOException {
-    String filePath =
-        outputPath != null
-            ? outputPath
-            : defaultOutputLocation(String.valueOf(ProcessHandle.current().pid()));
+    String filePath = outputPath != null
+        ? outputPath
+        : defaultOutputLocation(String.valueOf(ProcessHandle.current().pid()));
     logger.atInfo().log("storing execution results in: %s", filePath);
 
     try (PrintWriter out = new PrintWriter(filePath)) {
