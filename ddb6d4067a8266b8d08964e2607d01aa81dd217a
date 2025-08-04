@@ -16,6 +16,52 @@
       "message": "question: we are already printing `statsResults` to the file and AFAICT there is already a function in [gym_gerrit](https://github.com/GerritForge/gerritforge-health-service/blob/d489590646611f85f6a66faf403930427d590033/components/gym-gerrit/gerrit_env.py#L147) that consumes it all it has to do is to just use them, hasn\u0027t it? 🤔",
       "revId": "ddb6d4067a8266b8d08964e2607d01aa81dd217a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e54dbdcb_dbf13ca5",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/Main.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2025-08-04T18:36:06Z",
+      "side": 1,
+      "message": "nit: is this change related?",
+      "range": {
+        "startLine": 72,
+        "startChar": 3,
+        "endLine": 77,
+        "endChar": 0
+      },
+      "revId": "ddb6d4067a8266b8d08964e2607d01aa81dd217a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18263ad9_a2e6f816",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/Main.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2025-08-04T18:36:06Z",
+      "side": 1,
+      "message": "nit: same as above",
+      "range": {
+        "startLine": 83,
+        "startChar": 3,
+        "endLine": 86,
+        "endChar": 0
+      },
+      "revId": "ddb6d4067a8266b8d08964e2607d01aa81dd217a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
