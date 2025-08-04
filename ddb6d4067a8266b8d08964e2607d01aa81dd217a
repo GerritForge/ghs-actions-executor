@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10406847_a6117852",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/Main.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2025-08-04T18:34:19Z",
+      "side": 1,
+      "message": "question: we are already printing `statsResults` to the file and AFAICT there is already a function in [gym_gerrit](https://github.com/GerritForge/gerritforge-health-service/blob/d489590646611f85f6a66faf403930427d590033/components/gym-gerrit/gerrit_env.py#L147) that consumes it all it has to do is to just use them, hasn\u0027t it? 🤔",
+      "revId": "ddb6d4067a8266b8d08964e2607d01aa81dd217a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
