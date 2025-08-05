@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8013b9f4_24cd818f",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/Main.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2025-08-05T06:16:03Z",
+      "side": 1,
+      "message": "we do the same to exchange information with SFR model for instance in the other parts of the system 😉 Note that file is already opened and read the only thing that left is to use the data that was read as it is mentioned in the TODO",
+      "parentUuid": "6b5b2da0_203a6a05",
+      "revId": "ddb6d4067a8266b8d08964e2607d01aa81dd217a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e54dbdcb_dbf13ca5",
         "filename": "src/main/java/com/gerritforge/ghs/actions/Main.java",
         "patchSetId": 3
