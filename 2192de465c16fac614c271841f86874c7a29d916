@@ -310,6 +310,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9c79a0ac_5cf55b13",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationLog.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2025-08-13T14:08:10Z",
+      "side": 1,
+      "message": "\u003e Not sure if we actually need it - the empty stream will be returned \n\n`LongStream.rangeClosed(0, 0)` is not empty, it yields a single element (`0`).\nThe lambda will be executed anyway.\n\n`isLast` will be computed as `false` (isLast \u003d `0 \u003d\u003d 0 - 1`).\n```\nboolean isLast \u003d index \u003d\u003d totalChunks - 1;\n```\n\nin such case that will result in the `PruneInfo.EMPTY` \n\nYes, the reason this works however is because `preserveOldPacks` will filter out empty chunk\n\n```\n  private PreserveInfo preserveOldPacks(\n      Path preservedDir, Path packsDir, Stream\u003cBytesChunk\u003e packInfos) {\n    return packInfos\n        .filter(packInfo -\u003e packInfo.data().length \u003e 0)\n```\n\nI feel a bit uncomfortable that we shouldn\u0027t map over an empty set of chunks in the `read`, because the expectation in that lambda is that we do have chunks.\n\nCan you consider just having a failfast that prevents entering there at all?\n\n```\n  if (totalChunks \u003d\u003d 0) {\n      return reader.read(Stream.empty());\n    }\n```",
+      "parentUuid": "7aae8a63_e4f92a4e",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 37
+      },
+      "revId": "2192de465c16fac614c271841f86874c7a29d916",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ba9aa66e_7ad707fe",
         "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationLog.java",
         "patchSetId": 1
@@ -345,6 +369,30 @@
       "side": 1,
       "message": "It misses the last entry in such case",
       "parentUuid": "ba9aa66e_7ad707fe",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 57
+      },
+      "revId": "2192de465c16fac614c271841f86874c7a29d916",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "975b9d14_8a8a6cfb",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationLog.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2025-08-13T14:08:10Z",
+      "side": 1,
+      "message": "Sorry just trying to get my head round this.\nImagine `.ghs-packs.log` is 40 bytes (two pack IDs).\n\n`fileSize \u003d 40`\n`totalChunks \u003d 40 / 20 \u003d 2`\n`rangeClosed(0, 2)`\n\nWouldn\u0027t this iterates over indices 0, 1, 2 (three iterations, instead of two)?",
+      "parentUuid": "0b56c390_1e554e7d",
       "range": {
         "startLine": 107,
         "startChar": 0,
