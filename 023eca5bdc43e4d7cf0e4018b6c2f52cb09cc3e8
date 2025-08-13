@@ -47,6 +47,54 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a8c9ead_622ea405",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2025-08-13T06:58:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24cc98c4_b68fb53d",
+      "range": {
+        "startLine": 10,
+        "startChar": 41,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "023eca5bdc43e4d7cf0e4018b6c2f52cb09cc3e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce52210f_11dd0583",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2025-08-13T06:58:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "144bdda5_cc2b2691",
+      "range": {
+        "startLine": 10,
+        "startChar": 1,
+        "endLine": 10,
+        "endChar": 23
+      },
+      "revId": "023eca5bdc43e4d7cf0e4018b6c2f52cb09cc3e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cdba53e4_3d2335cc",
@@ -60,6 +108,30 @@
       "writtenOn": "2025-08-13T05:11:54Z",
       "side": 1,
       "message": "Could you add some Javadocs, since this is a public class?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 27
+      },
+      "revId": "023eca5bdc43e4d7cf0e4018b6c2f52cb09cc3e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c0a81a5_79ceda5b",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationLog.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2025-08-13T06:58:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdba53e4_3d2335cc",
       "range": {
         "startLine": 23,
         "startChar": 0,
