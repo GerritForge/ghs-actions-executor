@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6e45c3b8_d2b93abc",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationLog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2025-08-14T06:04:56Z",
+      "side": 1,
+      "message": "yes, otherwise it cannot be locked and fails in line `140` with:\n```\njava.nio.channels.NonWritableChannelException\n\tat java.base/sun.nio.ch.FileChannelImpl.lock(FileChannelImpl.java:1273)\n\tat java.base/java.nio.channels.FileChannel.lock(FileChannel.java:1089)\n\tat com.gerritforge.ghs.actions.BitmapGenerationLog.read(BitmapGenerationLog.java:140)\n\tat com.gerritforge.ghs.actions.PreserveOutdatedBitmapsAction.lambda$0(PreserveOutdatedBitmapsAction.java:46)\n\tat java.base/java.util.Optional.ifPresentOrElse(Optional.java:196)\n\tat com.gerritforge.ghs.actions.PreserveOutdatedBitmapsAction.apply(PreserveOutdatedBitmapsAction.java:40)\n\tat com.gerritforge.ghs.actions.PreserveOutdatedBitmapsActionTest.applyPreserveOutdatedBitmapsActionShouldPreserveOutdated(PreserveOutdatedBitmapsActionTest.java:70)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:568)\n\tat org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)\n\tat org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)\n\tat org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)\n\tat org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)\n\tat org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)\n\tat org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)\n\tat org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)\n\tat org.junit.rules.RunRules.evaluate(RunRules.java:20)\n\tat org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)\n\tat org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)\n\tat org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)\n\tat org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)\n\tat org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)\n\tat org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)\n\tat org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)\n\tat org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)\n\tat org.junit.runners.ParentRunner.run(ParentRunner.java:363)\n\tat org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:93)\n\tat org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:40)\n\tat org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:520)\n\tat org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:748)\n\tat org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:443)\n\tat org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:211)\n```",
+      "parentUuid": "acf32c8e_80253ea1",
+      "range": {
+        "startLine": 137,
+        "startChar": 66,
+        "endLine": 137,
+        "endChar": 90
+      },
+      "revId": "20c8e28359d8aaf8c54ce30bd99cb5243fcfa04d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "14f29c6f_f9130128",
         "filename": "src/main/java/com/gerritforge/ghs/actions/PreserveOutdatedBitmapsAction.java",
         "patchSetId": 3

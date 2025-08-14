@@ -332,6 +332,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "15647e9d_bc035043",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationLog.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2025-08-14T06:04:56Z",
+      "side": 1,
+      "message": "It is fixed with `LongStream.range` - no need for extra condition. Apart from that I can\u0027t see the scenario in which it would be the case as:\n1. no bitmap generation \u003d no log file\n2. no log file \u003d snapshoting the log result in the empty value\n3. empty value from snapshoting prevent\u0027s reading from the log\n\nIOW we were covered anyway 😉",
+      "parentUuid": "9c79a0ac_5cf55b13",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 37
+      },
+      "revId": "2192de465c16fac614c271841f86874c7a29d916",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba9aa66e_7ad707fe",
@@ -393,6 +417,30 @@
       "side": 1,
       "message": "Sorry just trying to get my head round this.\nImagine `.ghs-packs.log` is 40 bytes (two pack IDs).\n\n`fileSize \u003d 40`\n`totalChunks \u003d 40 / 20 \u003d 2`\n`rangeClosed(0, 2)`\n\nWouldn\u0027t this iterates over indices 0, 1, 2 (three iterations, instead of two)?",
       "parentUuid": "0b56c390_1e554e7d",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 57
+      },
+      "revId": "2192de465c16fac614c271841f86874c7a29d916",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "740c6cef_ab96c115",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationLog.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2025-08-14T06:04:56Z",
+      "side": 1,
+      "message": "Well that was my inderstanding too 😀 but it was failing in tests (probably the issues was there) - fixed now - thanks for being persistent on thet 😀",
+      "parentUuid": "975b9d14_8a8a6cfb",
       "range": {
         "startLine": 107,
         "startChar": 0,
