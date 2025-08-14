@@ -48,6 +48,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9eeac516_98f14305",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationLog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2025-08-14T12:59:15Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6e45c3b8_d2b93abc",
+      "range": {
+        "startLine": 137,
+        "startChar": 66,
+        "endLine": 137,
+        "endChar": 90
+      },
+      "revId": "20c8e28359d8aaf8c54ce30bd99cb5243fcfa04d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14f29c6f_f9130128",
