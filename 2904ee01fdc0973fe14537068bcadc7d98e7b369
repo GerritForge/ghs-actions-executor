@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fea5bfb_5ba7abd8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2025-08-14T13:39:14Z",
+      "side": 1,
+      "message": "@geminica.programs@gmail.com can you verify?",
+      "revId": "2904ee01fdc0973fe14537068bcadc7d98e7b369",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
