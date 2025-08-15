@@ -16,6 +16,23 @@
       "message": "@geminica.programs@gmail.com can you verify?",
       "revId": "2904ee01fdc0973fe14537068bcadc7d98e7b369",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa3fb73d_93140c76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019121
+      },
+      "writtenOn": "2025-08-15T06:33:05Z",
+      "side": 1,
+      "message": "I have performed the following tests:\n1. started local site\n2. pushed in to `master` in a loop (500)\n3. while pushing called `BitmapGenerationAction` several time so that entries are added to `.ghs-packs.log`\n4. still while pushing called `PreserveOutdatedBitmapsAction` a few times interchangeably with `BitmapGenerationAction`\n5. before the loop finished I have called again `BitmapGenerationAction`\n6. after the loop finished I have called `PreserveOutdatedBitmapsAction` so that last bitmap is preserved and all previous bitmaps are in `preserved` dir\n7. called push for review\n\nI haven\u0027t observed any issues in pushing, actions (all were reported successful) or in Gerrit log. IOW it works as expected 💪",
+      "revId": "2904ee01fdc0973fe14537068bcadc7d98e7b369",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
