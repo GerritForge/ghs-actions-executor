@@ -38,7 +38,7 @@ public class PackRefsAction implements Action {
       RefDatabase refDb = repo.getRefDatabase();
 
       if (refDb instanceof FileReftableDatabase) {
-          ((FileReftableDatabase) refDb).compactFully();
+        ((FileReftableDatabase) refDb).compactFully();
         return new ActionResult(true);
       }
 

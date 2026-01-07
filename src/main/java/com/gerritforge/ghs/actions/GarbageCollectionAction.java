@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.concurrent.ExecutionException;
+import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.internal.storage.file.FileRepository;
 import org.eclipse.jgit.internal.storage.file.GC;
 import org.eclipse.jgit.lib.NullProgressMonitor;
@@ -39,7 +40,11 @@ public class GarbageCollectionAction implements Action {
 
     try (FileRepository repository = (FileRepository) repositoryBuilder.build()) {
       runGarbageCollection(repository);
-    } catch (IOException | ParseException | ExecutionException | InterruptedException e) {
+    } catch (IOException
+        | ParseException
+        | ExecutionException
+        | InterruptedException
+        | GitAPIException e) {
       logger.atSevere().withCause(e).log(
           "Garbage collection action failed for the repository path %s", repositoryPath);
       return new ActionResult(
@@ -50,7 +55,11 @@ public class GarbageCollectionAction implements Action {
   }
 
   private void runGarbageCollection(FileRepository repo)
-      throws IOException, ParseException, ExecutionException, InterruptedException {
+      throws IOException,
+          ParseException,
+          ExecutionException,
+          InterruptedException,
+          GitAPIException {
     GC gc = new GC(repo);
     gc.setPackConfig(new PackConfig(repo));
     gc.setProgressMonitor(isVerbose() ? new TextProgressMonitor() : NullProgressMonitor.INSTANCE);

@@ -1,6 +1,6 @@
 .PHONY: clean
 
-JGIT_REF=refs/changes/24/1218524/2
+JGIT_REF=refs/changes/41/1228741/1
 
 TARGET=bazel-bin/plugins/ghs-actions/executor/ghs-actions-executor.jar
 
