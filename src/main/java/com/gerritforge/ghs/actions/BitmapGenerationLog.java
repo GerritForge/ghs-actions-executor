@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UncheckedIOException;
+import java.nio.ByteBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
@@ -30,17 +31,13 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
+import org.eclipse.jgit.lib.ObjectId;
 
 /** Manages thread-safe log for bitmap pack generation operations. */
 class BitmapGenerationLog {
-  /** Functional interface for performing log update operations. */
-  @FunctionalInterface
-  interface Updater {
-    void writeContent(FileChannel channel) throws IOException;
-  }
-
   /** Functional interface for reading log content in chunks. */
   @FunctionalInterface
   interface Reader<T> {
@@ -51,24 +48,71 @@ class BitmapGenerationLog {
   private static final String GHS_PACKS_LOG = ".ghs-packs.log";
   static final long ID_LENGTH = 20L;
 
-  /**
-   * Updates the bitmap generation log with file locking to ensure thread safety.
-   *
-   * @param objectsPath the Git objects directory path
-   * @param updater the operation to perform on the log file
-   * @throws IOException if file operations fail
-   */
-  static void update(Path objectsPath, Updater updater) throws IOException {
+  static void update(Path objectsPath, Iterable<ObjectId> ids) throws IOException {
     Path logPath = objectsPath.resolve("pack").resolve(GHS_PACKS_LOG);
-    try (FileChannel channel =
+
+    try (FileChannel logFileChannel =
             FileChannel.open(
                 logPath,
                 StandardOpenOption.CREATE,
-                StandardOpenOption.WRITE,
-                StandardOpenOption.APPEND);
-        FileLock lock = channel.lock()) {
-      updater.writeContent(channel);
-      channel.force(true);
+                StandardOpenOption.READ,
+                StandardOpenOption.WRITE);
+        FileLock lock = logFileChannel.lock()) {
+
+      Set<ObjectId> existing = readAllEntriesFromLog(logFileChannel);
+
+      logFileChannel.position(logFileChannel.size());
+      for (ObjectId id : ids) {
+        if (existing.add(id)) {
+          logger.atFine().log("Adding packFile %s to %s.", id, GHS_PACKS_LOG);
+          writeId(logFileChannel, id);
+        } else {
+          logger.atInfo().log(
+              "%s already contained packFile %s. Skipping duplicate.", GHS_PACKS_LOG, id);
+        }
+      }
+
+      logFileChannel.force(true);
+    }
+  }
+
+  private static Set<ObjectId> readAllEntriesFromLog(FileChannel channel) throws IOException {
+    long startNanos = System.nanoTime();
+    logger.atFine().log("Starting read of existing packfiles entries from %s.", GHS_PACKS_LOG);
+
+    long size = channel.size();
+    if (size % ID_LENGTH != 0) {
+      throw new IOException(
+          "Corrupted " + GHS_PACKS_LOG + " (size not multiple of " + ID_LENGTH + ")");
+    }
+
+    channel.position(0);
+
+    Set<ObjectId> ids = new java.util.HashSet<>();
+    ByteBuffer buf = ByteBuffer.allocate((int) ID_LENGTH);
+    byte[] raw = new byte[(int) ID_LENGTH];
+
+    while (channel.read(buf) == ID_LENGTH) {
+      buf.flip();
+      buf.get(raw);
+      ids.add(ObjectId.fromRaw(raw));
+      buf.clear();
+    }
+
+    long elapsedMillis = (System.nanoTime() - startNanos) / 1_000_000;
+    logger.atFine().log(
+        "Finished reading %d packfiles entries from %s in %d ms.",
+        ids.size(), GHS_PACKS_LOG, elapsedMillis);
+
+    return ids;
+  }
+
+  private static void writeId(FileChannel channel, ObjectId id) throws IOException {
+    ByteBuffer buf = ByteBuffer.allocate((int) ID_LENGTH);
+    id.copyRawTo(buf);
+    buf.flip();
+    while (buf.hasRemaining()) {
+      channel.write(buf);
     }
   }
 
