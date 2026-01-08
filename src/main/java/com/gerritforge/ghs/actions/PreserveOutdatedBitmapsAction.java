@@ -16,10 +16,8 @@ package com.gerritforge.ghs.actions;
 
 import com.gerritforge.ghs.actions.BitmapGenerationLog.BytesChunk;
 import com.google.common.flogger.FluentLogger;
-import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.file.DirectoryStream;
@@ -75,7 +73,7 @@ class PreserveOutdatedBitmapsAction implements Action {
           FileLock lock = logChannel.lock();
           FileChannel tempChannel =
               FileChannel.open(tempFile, StandardOpenOption.WRITE, StandardOpenOption.APPEND)) {
-        info.last().ifPresent(last -> writePackId(last, tempChannel));
+        info.last().ifPresent(last -> BitmapGenerationLog.writePackId(last, tempChannel));
         FileChannel sourceChannel = (FileChannel) lock.acquiredBy();
         long transferred = 0L;
         long size = sourceChannel.size();
@@ -89,20 +87,6 @@ class PreserveOutdatedBitmapsAction implements Action {
         Files.deleteIfExists(tempFile);
       }
     }
-  }
-
-  @CanIgnoreReturnValue
-  private static int writePackId(byte[] packId, FileChannel channel) {
-    ByteBuffer buffer = ByteBuffer.wrap(packId);
-    int written = 0;
-    while (buffer.hasRemaining()) {
-      try {
-        written += channel.write(buffer);
-      } catch (IOException e) {
-        throw new UncheckedIOException(e);
-      }
-    }
-    return written;
   }
 
   private PreserveInfo preserveOldPacks(
