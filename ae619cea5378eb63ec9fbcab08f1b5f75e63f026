@@ -1,4 +1,28 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a5e6a0c_f7ec0625",
+        "filename": "Makefile",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-01-08T13:29:40Z",
+      "side": 1,
+      "message": "`origin` may not be the correct remote, as it may be gerrit.googlesource.com rather than eclipse.gerrithub.io",
+      "range": {
+        "startLine": 15,
+        "startChar": 30,
+        "endLine": 15,
+        "endChar": 36
+      },
+      "revId": "ae619cea5378eb63ec9fbcab08f1b5f75e63f026",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ],
   "submitRequirementResults": []
 }
