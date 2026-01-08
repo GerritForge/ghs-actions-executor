@@ -89,6 +89,18 @@ public class BitmapGenerationActionTest extends GitActionTest {
     assertThat(logEntries(bitmapsLogPath).count()).isEqualTo(2L);
   }
 
+  @Test
+  public void applyBitmapGenerationActionShouldNotUpdateLogWithDuplicates() throws Exception {
+    pushNewCommitToBranch();
+    Path logPath = testRepoPath.resolve("objects/pack/.ghs-packs.log");
+    BitmapGenerationAction action = new BitmapGenerationAction();
+
+    assertThat(action.apply(testRepoPath.toString()).isSuccessful()).isTrue();
+    assertThat(action.apply(testRepoPath.toString()).isSuccessful()).isTrue();
+
+    assertThat(logEntries(logPath).count()).isEqualTo(1);
+  }
+
   private Stream<byte[]> logEntries(Path logPath) throws IOException {
     byte[] content = Files.readAllBytes(logPath);
     int chunkSize = 20;
