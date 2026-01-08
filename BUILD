@@ -15,6 +15,7 @@ genrule(
 java_binary(
     name = "ghs-actions-executor-bin",
     srcs = glob(["src/main/java/**/Main.java"]),
+    resources = ["src/main/resources/log4j.properties"],
     main_class = "com.gerritforge.ghs.actions.Main",
     deps = [
         ":ghs-actions-executor_lib",
