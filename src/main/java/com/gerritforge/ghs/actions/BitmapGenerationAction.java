@@ -17,9 +17,10 @@ package com.gerritforge.ghs.actions;
 import com.google.common.flogger.FluentLogger;
 import java.io.File;
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import org.eclipse.jgit.internal.storage.file.FileRepository;
 import org.eclipse.jgit.internal.storage.file.Pack;
 import org.eclipse.jgit.lib.ObjectId;
@@ -60,18 +61,11 @@ public class BitmapGenerationAction implements Action {
       return;
     }
 
-    BitmapGenerationLog.update(
-        objectsPath,
-        (channel) -> {
-          for (Pack packFile : packfiles) {
-            ObjectId id = ObjectId.fromString(packFile.getPackName());
-            ByteBuffer buffer = ByteBuffer.allocate((int) BitmapGenerationLog.ID_LENGTH);
-            id.copyRawTo(buffer);
-            buffer.flip();
-            while (buffer.hasRemaining()) {
-              channel.write(buffer);
-            }
-          }
-        });
+    List<ObjectId> ids = new ArrayList<>(packfiles.size());
+    for (Pack packFile : packfiles) {
+      ids.add(ObjectId.fromString(packFile.getPackName()));
+    }
+
+    BitmapGenerationLog.update(objectsPath, ids);
   }
 }
