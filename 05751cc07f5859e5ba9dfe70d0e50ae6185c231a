@@ -199,6 +199,30 @@
       },
       "revId": "05751cc07f5859e5ba9dfe70d0e50ae6185c231a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "720a0f93_05a31763",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationLog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-01-09T16:50:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e105ed6a_dedbc051",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 50
+      },
+      "revId": "05751cc07f5859e5ba9dfe70d0e50ae6185c231a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
