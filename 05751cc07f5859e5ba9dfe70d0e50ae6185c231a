@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fec01a92_7e58f19b",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationLog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-01-09T15:34:18Z",
+      "side": 1,
+      "message": "```suggestion\n  static void update(Path objectsPath, Iterable\u003cObjectId\u003e packsIds) throws IOException {\n```",
+      "range": {
+        "startLine": 66,
+        "startChar": 58,
+        "endLine": 66,
+        "endChar": 61
+      },
+      "revId": "05751cc07f5859e5ba9dfe70d0e50ae6185c231a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9197adf_98f34251",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationLog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-01-09T15:34:18Z",
+      "side": 1,
+      "message": "nit: accidental change?",
+      "revId": "05751cc07f5859e5ba9dfe70d0e50ae6185c231a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdf525e7_927c9a76",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationLog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-01-09T15:34:18Z",
+      "side": 1,
+      "message": "```suggestion\n              \"%s already contains packFile %s: skipping.\", GHS_PACKS_LOG, id);\n```\n\nBecause we don\u0027t add the new packId, it won\u0027t be duplicated.",
+      "range": {
+        "startLine": 86,
+        "startChar": 26,
+        "endLine": 86,
+        "endChar": 35
+      },
+      "revId": "05751cc07f5859e5ba9dfe70d0e50ae6185c231a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d56afbfa_050502a9",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationLog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-01-09T15:34:18Z",
+      "side": 1,
+      "message": "Is this instrumentation intended to stay also in production? Do we really need it?",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 50
+      },
+      "revId": "05751cc07f5859e5ba9dfe70d0e50ae6185c231a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
