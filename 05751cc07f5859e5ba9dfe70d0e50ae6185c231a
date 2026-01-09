@@ -85,6 +85,30 @@
       },
       "revId": "05751cc07f5859e5ba9dfe70d0e50ae6185c231a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2660bcee_9d9afdc0",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationLog.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-01-09T15:35:45Z",
+      "side": 1,
+      "message": "Since we are reading the entire log, I would like to have a way to understand how long it takes to easily spot if this is a bottleneck.\n\nWDYT?",
+      "parentUuid": "d56afbfa_050502a9",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 50
+      },
+      "revId": "05751cc07f5859e5ba9dfe70d0e50ae6185c231a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
