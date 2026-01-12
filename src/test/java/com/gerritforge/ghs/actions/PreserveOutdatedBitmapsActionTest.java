@@ -14,6 +14,7 @@
 
 package com.gerritforge.ghs.actions;
 
+import static com.gerritforge.ghs.actions.PreserveOutdatedBitmapsAction.getMostRecentExistingBitmap;
 import static com.google.common.truth.Truth.assertThat;
 import static java.util.stream.Collectors.toList;
 
@@ -25,10 +26,18 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.internal.storage.file.PackFile;
 import org.eclipse.jgit.lib.ObjectId;
 import org.junit.Test;
 
 public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
+
+  private static final ObjectId PACK_ID_A =
+      ObjectId.fromString("a3f5c9e8b7d6421f0e9a4c3b2d1e6f8a9b0c7d5e");
+  private static final ObjectId PACK_ID_B =
+      ObjectId.fromString("7b2e4a6c9d1f8e5a3c0b6d4f2e9a1c7b8d5f0e3a");
+
   @Test
   public void applyPreserveOutdatedBitmapsActionShouldDoNothingWhenNoLog() throws Exception {
     // when no bitmap is generated
@@ -188,6 +197,70 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
     // and then repo is still operable
     pushNewCommitToBranch();
     assertThat(new BitmapGenerationAction().apply(testRepoPath.toString()).isSuccessful()).isTrue();
+  }
+
+  @Test
+  public void shouldRemoveLogWhenLogExistsAndIsEmpty() throws IOException {
+    Path logPath = BitmapGenerationLog.logPath(testRepoPath.toString());
+    ensureGhsLogContainsExactly(List.of());
+
+    assertThat(new PreserveOutdatedBitmapsAction().apply(testRepoPath.toString()).isSuccessful())
+        .isTrue();
+
+    assertThat(Files.exists(logPath)).isFalse();
+  }
+
+  @Test
+  public void shouldRemoveLogWhenNoBitmapExists() throws IOException {
+    Path logPath = BitmapGenerationLog.logPath(testRepoPath.toString());
+    ensureGhsLogContainsExactly(List.of(PACK_ID_A, PACK_ID_B));
+
+    assertThat(new PreserveOutdatedBitmapsAction().apply(testRepoPath.toString()).isSuccessful())
+        .isTrue();
+
+    assertThat(Files.exists(logPath)).isFalse();
+  }
+
+  @Test
+  public void shouldOverwriteSingleObjectIdInLogEvenWhenItIsNotInTheLastPosition()
+      throws IOException, GitAPIException {
+    pushNewCommitToBranch();
+    assertThat(new BitmapGenerationAction().apply(testRepoPath.toString()).isSuccessful()).isTrue();
+
+    ObjectId mostRecentBitmapPackId = getMostRecentBitmapPackId();
+    Path logPath = BitmapGenerationLog.logPath(testRepoPath.toString());
+
+    ensureGhsLogContainsExactly(List.of(PACK_ID_A, mostRecentBitmapPackId, PACK_ID_B));
+
+    assertThat(new PreserveOutdatedBitmapsAction().apply(testRepoPath.toString()).isSuccessful())
+        .isTrue();
+
+    assertThat(Files.exists(logPath)).isTrue();
+    assertThat(BitmapGenerationLog.readAllEntriesFromLog(logPath))
+        .containsExactly(mostRecentBitmapPackId);
+  }
+
+  private void ensureGhsLogContainsExactly(List<ObjectId> entries) throws IOException {
+    deleteGHSLog();
+    Path logPath = BitmapGenerationLog.logPath(testRepoPath.toString());
+    Path objectsPath = testRepoPath.resolve("objects");
+
+    BitmapGenerationLog.update(objectsPath, entries);
+
+    assertThat(Files.exists(logPath)).isTrue();
+    assertThat(BitmapGenerationLog.readAllEntriesFromLog(logPath))
+        .containsExactlyElementsIn(entries);
+  }
+
+  private void deleteGHSLog() throws IOException {
+    Files.deleteIfExists(BitmapGenerationLog.logPath(testRepoPath.toString()));
+  }
+
+  private ObjectId getMostRecentBitmapPackId() throws IOException {
+    Path mostRecentExistingBitmap =
+        getMostRecentExistingBitmap(testRepoPath.resolve("objects/pack"));
+    assertThat(mostRecentExistingBitmap).isNotNull();
+    return ObjectId.fromString(new PackFile(mostRecentExistingBitmap.toFile()).getId());
   }
 
   private List<String> logEntries(Path bitmapsLogPath) throws IOException {
