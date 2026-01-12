@@ -29,6 +29,7 @@ import java.util.stream.Stream;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.internal.storage.file.PackFile;
 import org.eclipse.jgit.lib.ObjectId;
+import org.junit.Before;
 import org.junit.Test;
 
 public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
@@ -38,16 +39,23 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
   private static final ObjectId PACK_ID_B =
       ObjectId.fromString("7b2e4a6c9d1f8e5a3c0b6d4f2e9a1c7b8d5f0e3a");
 
+  private Path objectsPath;
+  private Path packPath;
+  private Path preservedPath;
+
+  @Before
+  public void setUp() {
+    objectsPath = testRepoPath.resolve("objects");
+    packPath = objectsPath.resolve("pack");
+    preservedPath = packPath.resolve("preserved");
+  }
+
   @Test
   public void applyPreserveOutdatedBitmapsActionShouldDoNothingWhenNoLog() throws Exception {
     // when no bitmap is generated
     pushNewCommitToBranch();
     File pack =
-        Files.list(testRepoPath.resolve("objects/pack"))
-            .filter(p -> p.toString().endsWith(".pack"))
-            .findFirst()
-            .get()
-            .toFile();
+        Files.list(packPath).filter(p -> p.toString().endsWith(".pack")).findFirst().get().toFile();
 
     // and preserve outdated bitmap action is called
     assertThat(new PreserveOutdatedBitmapsAction().apply(testRepoPath.toString()).isSuccessful())
@@ -55,8 +63,7 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
 
     // then repository state doesn't change
     assertThat(pack.isFile()).isTrue();
-    File preserved = testRepoPath.resolve("objects/pack/preserved").toFile();
-    assertThat(preserved.isFile()).isFalse();
+    assertThat(preservedPath.toFile().isFile()).isFalse();
   }
 
   @Test
@@ -64,10 +71,7 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
     // when two bitmaps are generated
     pushNewCommitToBranch();
     Path olderPackPath =
-        Files.list(testRepoPath.resolve("objects/pack"))
-            .filter(p -> p.toString().endsWith(".pack"))
-            .findFirst()
-            .get();
+        Files.list(packPath).filter(p -> p.toString().endsWith(".pack")).findFirst().get();
     assertThat(new BitmapGenerationAction().apply(testRepoPath.toString()).isSuccessful()).isTrue();
     pushNewCommitToBranch();
     assertThat(new BitmapGenerationAction().apply(testRepoPath.toString()).isSuccessful()).isTrue();
@@ -80,7 +84,6 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
         .isTrue();
 
     // then the older pack is preserved
-    Path preservedPath = testRepoPath.resolve("objects/pack/preserved");
     assertThat(
             Files.list(preservedPath)
                 .filter(p -> p.toString().contains(olderPackPath.getFileName().toString()))
@@ -89,10 +92,7 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
 
     // and then the newest pack is not modified
     String newestPackId = logPackIds[1];
-    assertThat(
-            Files.list(testRepoPath.resolve("objects/pack"))
-                .filter(p -> p.toString().contains(newestPackId))
-                .findFirst())
+    assertThat(Files.list(packPath).filter(p -> p.toString().contains(newestPackId)).findFirst())
         .isPresent();
 
     // and then log file contains newest pack id
@@ -109,10 +109,7 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
     // when >=one bitmap is generated
     pushNewCommitToBranch();
     Path lastPackPath =
-        Files.list(testRepoPath.resolve("objects/pack"))
-            .filter(p -> p.toString().endsWith(".pack"))
-            .findFirst()
-            .get();
+        Files.list(packPath).filter(p -> p.toString().endsWith(".pack")).findFirst().get();
     assertThat(new BitmapGenerationAction().apply(testRepoPath.toString()).isSuccessful()).isTrue();
     Path bitmapsLogPath = lastPackPath.getParent().resolve(".ghs-packs.log");
 
@@ -133,7 +130,6 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
         .isTrue();
 
     // then old last pack id is preserved
-    Path preservedPath = testRepoPath.resolve("objects/pack/preserved");
     assertThat(
             Files.list(preservedPath)
                 .filter(p -> p.toString().contains(lastPackPath.getFileName().toString()))
@@ -141,10 +137,7 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
         .isPresent();
 
     // and new last is not modified
-    assertThat(
-            Files.list(testRepoPath.resolve("objects/pack"))
-                .filter(p -> p.toString().contains(newLastPackId))
-                .findFirst())
+    assertThat(Files.list(packPath).filter(p -> p.toString().contains(newLastPackId)).findFirst())
         .isPresent();
 
     // and then log file contains only new last id
@@ -174,7 +167,6 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
         .isTrue();
 
     // then second to last pack is still in preserved
-    Path preservedPath = testRepoPath.resolve("objects/pack/preserved");
     String secondToLastPackId = logPackIds[0];
     assertThat(
             Files.list(preservedPath)
@@ -184,10 +176,7 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
 
     // and then the newest pack is still not modified
     String lastPackId = logPackIds[1];
-    assertThat(
-            Files.list(testRepoPath.resolve("objects/pack"))
-                .filter(p -> p.toString().contains(lastPackId))
-                .findFirst())
+    assertThat(Files.list(packPath).filter(p -> p.toString().contains(lastPackId)).findFirst())
         .isPresent();
 
     // and then log file contains last id
@@ -243,7 +232,6 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
   private void ensureGhsLogContainsExactly(List<ObjectId> entries) throws IOException {
     deleteGHSLog();
     Path logPath = BitmapGenerationLog.logPath(testRepoPath.toString());
-    Path objectsPath = testRepoPath.resolve("objects");
 
     BitmapGenerationLog.update(objectsPath, entries);
 
@@ -257,8 +245,7 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
   }
 
   private ObjectId getMostRecentBitmapPackId() throws IOException {
-    Path mostRecentExistingBitmap =
-        getMostRecentExistingBitmap(testRepoPath.resolve("objects/pack"));
+    Path mostRecentExistingBitmap = getMostRecentExistingBitmap(packPath);
     assertThat(mostRecentExistingBitmap).isNotNull();
     return ObjectId.fromString(new PackFile(mostRecentExistingBitmap.toFile()).getId());
   }
