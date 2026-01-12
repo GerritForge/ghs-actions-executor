@@ -14,13 +14,16 @@
 
 package com.gerritforge.ghs.actions;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.internal.storage.file.FileRepository;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.transport.RefSpec;
 import org.junit.After;
 import org.junit.Before;
@@ -39,6 +42,7 @@ public abstract class GitActionTest {
 
   @Rule public TestName name = new TestName();
   protected Path testRepoPath;
+  protected FileRepository repo;
   protected Git testRepoGit;
   protected String gitRepoUri;
 
@@ -48,6 +52,13 @@ public abstract class GitActionTest {
     gitRepoUri = "file://" + testRepoPath;
 
     testRepoGit = Git.init().setBare(true).setDirectory(testRepoPath.toFile()).call();
+
+    FileRepositoryBuilder repositoryBuilder =
+        new FileRepositoryBuilder()
+            .setGitDir(new File(testRepoPath.toString()))
+            .readEnvironment()
+            .findGitDir();
+    repo = (FileRepository) repositoryBuilder.build();
   }
 
   @After
