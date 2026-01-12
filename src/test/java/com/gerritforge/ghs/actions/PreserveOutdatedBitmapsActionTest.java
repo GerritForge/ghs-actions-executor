@@ -191,6 +191,7 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
   }
 
   private List<String> logEntries(Path bitmapsLogPath) throws IOException {
+    // TODO: Could use readAllEntriesFromLog here
     byte[] content = Files.readAllBytes(bitmapsLogPath);
     int chunkSize = 20;
     if (content.length < chunkSize || content.length % chunkSize != 0) {
