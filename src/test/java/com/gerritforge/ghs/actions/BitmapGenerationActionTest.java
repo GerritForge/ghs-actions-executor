@@ -23,6 +23,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Stream;
+import org.eclipse.jgit.internal.storage.file.GC;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
 import org.junit.Test;
@@ -99,6 +100,18 @@ public class BitmapGenerationActionTest extends GitActionTest {
     assertThat(action.apply(testRepoPath.toString()).isSuccessful()).isTrue();
 
     assertThat(logEntries(logPath).count()).isEqualTo(1);
+  }
+
+  @Test
+  public void applyBitmapGenerationActionShouldNotGenerateBitMapIfAlreadyRunning()
+      throws Exception {
+    GC gc = new GC(repo);
+    GC.PidLock lock = gc.new PidLock();
+    lock.lock();
+
+    ActionResult result = new BitmapGenerationAction().apply(testRepoPath.toString());
+    assertThat(result.isSuccessful()).isTrue();
+    assertThat(result.getMessage()).startsWith("Bitmap generation already ongoing");
   }
 
   private Stream<byte[]> logEntries(Path logPath) throws IOException {
