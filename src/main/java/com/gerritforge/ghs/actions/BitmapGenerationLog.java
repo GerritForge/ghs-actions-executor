@@ -16,14 +16,8 @@ package com.gerritforge.ghs.actions;
 
 import com.google.common.flogger.FluentLogger;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UncheckedIOException;
 import java.nio.ByteBuffer;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.file.AtomicMoveNotSupportedException;
@@ -34,18 +28,10 @@ import java.nio.file.StandardOpenOption;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.LongStream;
-import java.util.stream.Stream;
 import org.eclipse.jgit.lib.ObjectId;
 
 /** Manages thread-safe log for bitmap pack generation operations. */
 class BitmapGenerationLog {
-  /** Functional interface for reading log content in chunks. */
-  @FunctionalInterface
-  interface Reader<T> {
-    T read(Stream<BytesChunk> chunks) throws IOException;
-  }
-
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
   private static final String GHS_PACKS_LOG = ".ghs-packs.log";
   static final long ID_LENGTH = 20L;
@@ -93,7 +79,19 @@ class BitmapGenerationLog {
     }
   }
 
-  private static Set<ObjectId> readAllEntriesFromLog(FileChannel channel) throws IOException {
+  public static Set<ObjectId> readAllEntriesFromLog(Path logPath) throws IOException {
+    try (FileChannel channel =
+            FileChannel.open(
+                logPath,
+                StandardOpenOption.CREATE,
+                StandardOpenOption.READ,
+                StandardOpenOption.WRITE);
+        FileLock lock = channel.lock()) {
+      return readAllEntriesFromLog(channel);
+    }
+  }
+
+  public static Set<ObjectId> readAllEntriesFromLog(FileChannel channel) throws IOException {
     long startNanos = System.nanoTime();
     logger.atInfo().log("Starting read of existing packfiles entries from %s.", GHS_PACKS_LOG);
 
@@ -106,7 +104,7 @@ class BitmapGenerationLog {
     channel.position(0);
 
     int entries = (int) (size / ID_LENGTH);
-    Set<ObjectId> ids = new HashSet<>();
+    Set<ObjectId> ids = new HashSet<>(entries);
     ByteBuffer buf = ByteBuffer.allocate((int) ID_LENGTH);
     byte[] raw = new byte[(int) ID_LENGTH];
 
@@ -196,61 +194,27 @@ class BitmapGenerationLog {
   }
 
   /**
-   * Reads log file content in chunks with file locking.
-   *
-   * @param fileToRead the file to read
-   * @param reader the reader to process chunks
-   * @return the result from the reader
-   * @throws IOException if file operations fail
-   */
-  static <T> T read(Path fileToRead, Reader<T> reader) throws IOException {
-    try (FileChannel channel =
-            FileChannel.open(fileToRead, StandardOpenOption.READ, StandardOpenOption.WRITE);
-        InputStream input = Channels.newInputStream(channel);
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(input));
-        FileLock lock = channel.lock()) {
-      long fileSize = channel.size();
-      long totalChunks = fileSize / ID_LENGTH;
-
-      Stream<BytesChunk> chunks =
-          LongStream.range(0, totalChunks)
-              .mapToObj(
-                  index -> {
-                    try {
-                      long position = ID_LENGTH * index;
-                      long size = Math.min(ID_LENGTH, fileSize - position);
-
-                      MappedByteBuffer buffer =
-                          channel.map(FileChannel.MapMode.READ_ONLY, position, size);
-                      boolean isLast = index == totalChunks - 1;
-
-                      byte[] chunk = new byte[(int) size];
-                      buffer.get(chunk);
-                      return new BytesChunk(chunk, isLast);
-                    } catch (IOException e) {
-                      logger.atSevere().withCause(e).log("Reading chunks failed.");
-                      throw new UncheckedIOException(e);
-                    }
-                  });
-      return reader.read(chunks);
-    }
-  }
-
-  /**
-   * Moves a file with atomic operation support.
+   * Moves a file with atomic operation support, if the file exists.
    *
    * @param source the source file
    * @param target the target file
+   * @return a boolean indicating whether the source file existed.
    * @throws IOException if move operation fails
    */
-  static void move(Path source, Path target) throws IOException {
+  static boolean move(Path source, Path target) throws IOException {
     if (Files.exists(source)) {
       try {
         Files.move(source, target, StandardCopyOption.ATOMIC_MOVE);
       } catch (AtomicMoveNotSupportedException e) {
         Files.move(source, target);
       }
+      logger.atFine().log("Moves source: %s to target: %s.", source, target);
+      return true;
     }
+    logger.atFine().log(
+        "Cannot move source: %s to target: %s, because source does not exist. Skipping.",
+        source, target);
+    return false;
   }
 
   /**
@@ -270,9 +234,6 @@ class BitmapGenerationLog {
       }
     }
   }
-
-  /** Represents a chunk of bytes from the log file. */
-  record BytesChunk(byte[] data, boolean isLast) {}
 
   private BitmapGenerationLog() {}
 }
