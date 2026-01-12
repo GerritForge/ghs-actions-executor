@@ -24,6 +24,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea42c181_c96c2349",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationLog.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-01-12T18:56:50Z",
+      "side": 1,
+      "message": "Comment no longer needed. Removed.",
+      "parentUuid": "8aa68a02_316f7004",
+      "range": {
+        "startLine": 67,
+        "startChar": 9,
+        "endLine": 67,
+        "endChar": 19
+      },
+      "revId": "a792aabe8fed666b8fac1041d50e10951cb7321c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "17f0b7e0_a7495cc0",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-01-12T18:36:34Z",
       "side": 1,
       "message": "Why not simply returning a `HashSet` from `readAllEntriesFromLog()` instead?\nThe order isn\u0027t used anymore and we only check if an id exists or not in the set.",
+      "range": {
+        "startLine": 68,
+        "startChar": 31,
+        "endLine": 68,
+        "endChar": 45
+      },
+      "revId": "a792aabe8fed666b8fac1041d50e10951cb7321c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13459868_4c78c3ab",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationLog.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-01-12T18:56:50Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "17f0b7e0_a7495cc0",
       "range": {
         "startLine": 68,
         "startChar": 31,
@@ -70,6 +118,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88e136a4_e41dcc15",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationLog.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-01-12T18:56:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "998dbd35_5d9a22a0",
+      "range": {
+        "startLine": 86,
+        "startChar": 16,
+        "endLine": 86,
+        "endChar": 20
+      },
+      "revId": "a792aabe8fed666b8fac1041d50e10951cb7321c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5989c5da_977877c6",
@@ -83,6 +155,30 @@
       "writtenOn": "2026-01-12T18:36:34Z",
       "side": 1,
       "message": "```suggestion\n  public static Set\u003cObjectId\u003e readAllEntriesFromLog(FileChannel channel) throws IOException {\n```",
+      "range": {
+        "startLine": 98,
+        "startChar": 16,
+        "endLine": 98,
+        "endChar": 20
+      },
+      "revId": "a792aabe8fed666b8fac1041d50e10951cb7321c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e59ecbb_0d43f0f5",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationLog.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-01-12T18:56:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5989c5da_977877c6",
       "range": {
         "startLine": 98,
         "startChar": 16,
@@ -116,6 +212,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc8e4e03_ad7c9bf2",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationLog.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-01-12T18:56:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea71419c_c8013c72",
+      "range": {
+        "startLine": 111,
+        "startChar": 29,
+        "endLine": 111,
+        "endChar": 38
+      },
+      "revId": "a792aabe8fed666b8fac1041d50e10951cb7321c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e1b6264_e5da7661",
@@ -129,6 +249,30 @@
       "writtenOn": "2026-01-12T18:36:34Z",
       "side": 1,
       "message": "From what I see in the body, it simply write the whole file with a single objectId, without checking if that\u0027s the most recent bitmap in log or not.\n\n\n\n```suggestion\n  private static void overwriteSingleObjectIdInLog(ObjectId objectId, String repositoryPath)\n```",
+      "range": {
+        "startLine": 91,
+        "startChar": 22,
+        "endLine": 91,
+        "endChar": 47
+      },
+      "revId": "a792aabe8fed666b8fac1041d50e10951cb7321c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25e56ba3_ed394293",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/PreserveOutdatedBitmapsAction.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-01-12T18:56:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e1b6264_e5da7661",
       "range": {
         "startLine": 91,
         "startChar": 22,
