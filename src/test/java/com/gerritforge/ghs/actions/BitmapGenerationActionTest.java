@@ -14,12 +14,16 @@
 
 package com.gerritforge.ghs.actions;
 
+import static com.gerritforge.ghs.actions.BitmapGenerator.GC_LOCK_FILE;
 import static com.google.common.truth.Truth.assertThat;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -99,6 +103,27 @@ public class BitmapGenerationActionTest extends GitActionTest {
     assertThat(action.apply(testRepoPath.toString()).isSuccessful()).isTrue();
 
     assertThat(logEntries(logPath).count()).isEqualTo(1);
+  }
+
+  @Test
+  public void applyBitmapGenerationActionShouldNotGenerateBitMapIfAlreadyRunning()
+      throws Exception {
+    File lockFile = new File(testRepoPath.resolve(GC_LOCK_FILE).toString());
+    lockFile.createNewFile();
+
+    try (FileChannel channel =
+            FileChannel.open(
+                lockFile.toPath(),
+                StandardOpenOption.CREATE,
+                StandardOpenOption.READ,
+                StandardOpenOption.WRITE);
+        FileLock lock = channel.lock()) {
+      assertThat(lockFile.exists()).isTrue();
+
+      ActionResult result = new BitmapGenerationAction().apply(testRepoPath.toString());
+      assertThat(result.isSuccessful()).isTrue();
+      assertThat(result.getMessage()).startsWith("Bitmap generation already ongoing");
+    }
   }
 
   private Stream<byte[]> logEntries(Path logPath) throws IOException {

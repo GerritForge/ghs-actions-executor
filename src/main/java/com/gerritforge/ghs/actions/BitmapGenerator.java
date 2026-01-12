@@ -21,10 +21,13 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
+import java.nio.channels.OverlappingFileLockException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
 import java.text.MessageFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -75,6 +78,7 @@ import org.eclipse.jgit.util.FileUtils;
 public class BitmapGenerator {
   private static final FluentLogger LOG = FluentLogger.forEnclosingClass();
 
+  static final String GC_LOCK_FILE = "gc.pid";
   private final FileRepository repo;
 
   private ProgressMonitor pm;
@@ -116,73 +120,87 @@ public class BitmapGenerator {
     Set<ObjectId> tagTargets = new HashSet<>();
     Set<ObjectId> indexObjects = listNonHEADIndexObjects();
 
-    Set<ObjectId> refsToExcludeFromBitmap =
-        repo.getRefDatabase().getRefsByPrefix(pconfig.getBitmapExcludedRefsPrefixes()).stream()
-            .map(Ref::getObjectId)
-            .collect(Collectors.toSet());
+    Path lockPath = Path.of(repo.getDirectory().getAbsolutePath(), GC_LOCK_FILE);
+    try (FileChannel channel =
+            FileChannel.open(
+                lockPath,
+                StandardOpenOption.CREATE,
+                StandardOpenOption.READ,
+                StandardOpenOption.WRITE);
+        FileLock lock = channel.tryLock()) {
+      if (lock == null || !lock.isValid()) {
+        throw new BitmapAlreadyOngoingException(GC_LOCK_FILE);
+      }
+      Set<ObjectId> refsToExcludeFromBitmap =
+          repo.getRefDatabase().getRefsByPrefix(pconfig.getBitmapExcludedRefsPrefixes()).stream()
+              .map(Ref::getObjectId)
+              .collect(Collectors.toSet());
 
-    for (Ref ref : refsBefore) {
-      checkCancelled();
-      nonHeads.addAll(listRefLogObjects(ref, 0));
-      if (ref.isSymbolic() || ref.getObjectId() == null) {
-        continue;
+      for (Ref ref : refsBefore) {
+        checkCancelled();
+        nonHeads.addAll(listRefLogObjects(ref, 0));
+        if (ref.isSymbolic() || ref.getObjectId() == null) {
+          continue;
+        }
+        if (isHead(ref)) {
+          allHeads.add(ref.getObjectId());
+        } else if (isTag(ref)) {
+          allTags.add(ref.getObjectId());
+        } else {
+          nonHeads.add(ref.getObjectId());
+        }
+        if (ref.getPeeledObjectId() != null) {
+          tagTargets.add(ref.getPeeledObjectId());
+        }
       }
-      if (isHead(ref)) {
-        allHeads.add(ref.getObjectId());
-      } else if (isTag(ref)) {
-        allTags.add(ref.getObjectId());
-      } else {
-        nonHeads.add(ref.getObjectId());
+
+      List<ObjectIdSet> excluded = new LinkedList<>();
+      for (Pack p : repo.getObjectDatabase().getPacks()) {
+        checkCancelled();
+        if (!shouldPackKeptObjects() && p.shouldBeKept()) {
+          excluded.add(p.getIndex());
+        }
       }
-      if (ref.getPeeledObjectId() != null) {
-        tagTargets.add(ref.getPeeledObjectId());
+
+      // Don't exclude tags that are also branch tips
+      allTags.removeAll(allHeads);
+      allHeadsAndTags.addAll(allHeads);
+      allHeadsAndTags.addAll(allTags);
+
+      // Hoist all branch tips and tags earlier in the pack file
+      tagTargets.addAll(allHeadsAndTags);
+      nonHeads.addAll(indexObjects);
+
+      // Combine the GC_REST objects into the GC pack if requested
+      if (pconfig.getSinglePack()) {
+        allHeadsAndTags.addAll(nonHeads);
+        nonHeads.clear();
       }
+
+      List<Pack> ret = new ArrayList<>(2);
+      Pack heads = null;
+      if (!allHeadsAndTags.isEmpty()) {
+        heads =
+            writePack(
+                allHeadsAndTags,
+                PackWriter.NONE,
+                allTags,
+                refsToExcludeFromBitmap,
+                tagTargets,
+                excluded,
+                true);
+        if (heads != null) {
+          ret.add(heads);
+          excluded.add(0, heads.getIndex());
+        }
+      }
+
+      deleteTempPacksIdx();
+
+      return ret;
+    } catch (OverlappingFileLockException e) {
+      throw new BitmapAlreadyOngoingException(GC_LOCK_FILE);
     }
-
-    List<ObjectIdSet> excluded = new LinkedList<>();
-    for (Pack p : repo.getObjectDatabase().getPacks()) {
-      checkCancelled();
-      if (!shouldPackKeptObjects() && p.shouldBeKept()) {
-        excluded.add(p.getIndex());
-      }
-    }
-
-    // Don't exclude tags that are also branch tips
-    allTags.removeAll(allHeads);
-    allHeadsAndTags.addAll(allHeads);
-    allHeadsAndTags.addAll(allTags);
-
-    // Hoist all branch tips and tags earlier in the pack file
-    tagTargets.addAll(allHeadsAndTags);
-    nonHeads.addAll(indexObjects);
-
-    // Combine the GC_REST objects into the GC pack if requested
-    if (pconfig.getSinglePack()) {
-      allHeadsAndTags.addAll(nonHeads);
-      nonHeads.clear();
-    }
-
-    List<Pack> ret = new ArrayList<>(2);
-    Pack heads = null;
-    if (!allHeadsAndTags.isEmpty()) {
-      heads =
-          writePack(
-              allHeadsAndTags,
-              PackWriter.NONE,
-              allTags,
-              refsToExcludeFromBitmap,
-              tagTargets,
-              excluded,
-              true);
-      if (heads != null) {
-        ret.add(heads);
-        excluded.add(0, heads.getIndex());
-      }
-    }
-
-    deleteTempPacksIdx();
-
-    return ret;
   }
 
   private static boolean isHead(Ref ref) {
