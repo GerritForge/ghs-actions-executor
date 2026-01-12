@@ -23,6 +23,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Stream;
+import org.eclipse.jgit.internal.storage.file.GC;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
 import org.junit.Test;
@@ -99,6 +100,33 @@ public class BitmapGenerationActionTest extends GitActionTest {
     assertThat(action.apply(testRepoPath.toString()).isSuccessful()).isTrue();
 
     assertThat(logEntries(logPath).count()).isEqualTo(1);
+  }
+
+  @Test
+  public void applyBitmapGenerationActionShouldNotGenerateBitMapIfAlreadyRunning()
+      throws Exception {
+    GC gc = new GC(repo);
+    GC.PidLock lock = gc.new PidLock();
+    lock.lock();
+
+    long bitmapsCountBefore =
+        Files.list(testRepoPath.resolve("objects/pack"))
+            .filter(p -> p.toString().endsWith(".bitmap"))
+            .count();
+
+    ActionResult result = new BitmapGenerationAction().apply(testRepoPath.toString());
+
+    long bitmapsCountAfter =
+        Files.list(testRepoPath.resolve("objects/pack"))
+            .filter(p -> p.toString().endsWith(".bitmap"))
+            .count();
+
+    assertThat(result.isSuccessful()).isFalse();
+    assertThat(result.getMessage())
+        .startsWith(
+            "Skipped bitmap generation for repository "
+                + testRepoGit.getRepository().getIdentifier());
+    assertThat(bitmapsCountBefore).isEqualTo(bitmapsCountAfter);
   }
 
   private Stream<byte[]> logEntries(Path logPath) throws IOException {

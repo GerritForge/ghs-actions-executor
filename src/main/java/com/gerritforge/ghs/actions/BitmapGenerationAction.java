@@ -45,6 +45,14 @@ public class BitmapGenerationAction implements Action {
     try (FileRepository repository = (FileRepository) repositoryBuilder.build()) {
       Collection<Pack> packFiles = prepareBitmap(repository);
       updateBitmapGenerationLog(packFiles, repository.getObjectsDirectory().toPath());
+    } catch (GcLockHeldException e) {
+      logger.atWarning().withCause(e).log(
+          "Skipped bitmap generation for repository %s", repositoryPath);
+      return new ActionResult(
+          false,
+          String.format(
+              "Skipped bitmap generation for repository %s, message: %s",
+              repositoryPath, e.getMessage()));
     } catch (IOException e) {
       logger.atSevere().withCause(e).log(
           "Bitmap generation failed for the repository path %s", repositoryPath);
