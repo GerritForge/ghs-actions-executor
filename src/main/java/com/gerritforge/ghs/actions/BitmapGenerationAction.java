@@ -45,6 +45,11 @@ public class BitmapGenerationAction implements Action {
     try (FileRepository repository = (FileRepository) repositoryBuilder.build()) {
       Collection<Pack> packFiles = prepareBitmap(repository);
       updateBitmapGenerationLog(packFiles, repository.getObjectsDirectory().toPath());
+    } catch (BitmapGenerationAlreadyOngoingException e) {
+      logger.atWarning().withCause(e).log(
+          "Bitmap generation already ongoing for the repository path %s", repositoryPath);
+      return new ActionResult(
+          true, String.format("Bitmap generation already ongoing, message: %s", e.getMessage()));
     } catch (IOException e) {
       logger.atSevere().withCause(e).log(
           "Bitmap generation failed for the repository path %s", repositoryPath);
