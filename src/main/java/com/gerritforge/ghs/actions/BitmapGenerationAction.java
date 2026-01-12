@@ -17,6 +17,7 @@ package com.gerritforge.ghs.actions;
 import com.google.common.flogger.FluentLogger;
 import java.io.File;
 import java.io.IOException;
+import java.nio.channels.OverlappingFileLockException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -45,6 +46,11 @@ public class BitmapGenerationAction implements Action {
     try (FileRepository repository = (FileRepository) repositoryBuilder.build()) {
       Collection<Pack> packFiles = prepareBitmap(repository);
       updateBitmapGenerationLog(packFiles, repository.getObjectsDirectory().toPath());
+    } catch (OverlappingFileLockException | BitmapAlreadyOngoingException e) {
+      logger.atSevere().withCause(e).log(
+          "Bitmap generation already ongoing for the repository path %s", repositoryPath);
+      return new ActionResult(
+          true, String.format("Bitmap generation already ongoing, message: %s", e.getCause()));
     } catch (IOException e) {
       logger.atSevere().withCause(e).log(
           "Bitmap generation failed for the repository path %s", repositoryPath);
