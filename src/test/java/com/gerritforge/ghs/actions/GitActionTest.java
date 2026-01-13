@@ -14,13 +14,22 @@
 
 package com.gerritforge.ghs.actions;
 
+import static com.gerritforge.ghs.actions.PreserveOutdatedBitmapsAction.getMostRecentExistingBitmap;
+import static com.google.common.truth.Truth.assertThat;
+
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Stream;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.internal.storage.file.FileRepository;
+import org.eclipse.jgit.internal.storage.file.PackFile;
+import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
@@ -45,6 +54,10 @@ public abstract class GitActionTest {
   protected FileRepository repo;
   protected Git testRepoGit;
   protected String gitRepoUri;
+  protected Path objectsPath;
+  protected Path packPath;
+  protected Path preservedPath;
+  protected Path bitmapsLogPath;
 
   @Before
   public void setup() throws Exception {
@@ -59,6 +72,11 @@ public abstract class GitActionTest {
             .readEnvironment()
             .findGitDir();
     repo = (FileRepository) repositoryBuilder.build();
+
+    objectsPath = testRepoPath.resolve("objects");
+    packPath = objectsPath.resolve("pack");
+    preservedPath = packPath.resolve("preserved");
+    bitmapsLogPath = packPath.resolve(".ghs-packs.log");
   }
 
   @After
@@ -82,5 +100,47 @@ public abstract class GitActionTest {
     Ref branch = git.branchCreate().setName(TEST_BRANCH).setStartPoint(commit.getName()).call();
     git.push().setForce(true).setRefSpecs(new RefSpec(ALL_REFS_SPEC)).setRemote(gitRepoUri).call();
     return branch;
+  }
+
+  protected void ensureBitmapsLogContainsExactly(List<ObjectId> entries) throws IOException {
+    deleteGHSLog();
+    Path logPath = BitmapGenerationLog.logPath(testRepoPath.toString());
+
+    BitmapGenerationLog.update(objectsPath, entries);
+
+    assertThat(Files.exists(logPath)).isTrue();
+    assertThat(BitmapGenerationLog.readAllEntriesFromLog(logPath))
+        .containsExactlyElementsIn(entries);
+  }
+
+  protected void assertBitmapsLogContainsOnly(String entry) throws IOException {
+    assertThat(BitmapGenerationLog.readAllEntriesFromLog(bitmapsLogPath))
+        .containsExactly(ObjectId.fromString(entry));
+  }
+
+  protected void deleteGHSLog() throws IOException {
+    Files.deleteIfExists(BitmapGenerationLog.logPath(testRepoPath.toString()));
+  }
+
+  protected ObjectId getMostRecentBitmapPackId() throws IOException {
+    Path mostRecentExistingBitmap = getMostRecentExistingBitmap(packPath);
+    assertThat(mostRecentExistingBitmap).isNotNull();
+    return ObjectId.fromString(new PackFile(mostRecentExistingBitmap.toFile()).getId());
+  }
+
+  protected PackFile findMostRecentPack() throws IOException {
+    try (Stream<Path> s = Files.list(packPath)) {
+      return s.filter(p -> p.toString().endsWith(".pack"))
+          .max(Comparator.comparingLong(p -> p.toFile().lastModified()))
+          .map(p -> new PackFile(p.toFile()))
+          .orElseThrow();
+    }
+  }
+
+  @CanIgnoreReturnValue
+  protected PackFile pushAndGenerateNewBitmap() throws GitAPIException, IOException {
+    pushNewCommitToBranch();
+    assertThat(new BitmapGenerationAction().apply(testRepoPath.toString()).isSuccessful()).isTrue();
+    return findMostRecentPack();
   }
 }
