@@ -41,6 +41,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44ef20b3_47ce8740",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapAlreadyOngoingException.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-01-13T11:18:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20073c14_eb573356",
+      "range": {
+        "startLine": 19,
+        "startChar": 13,
+        "endLine": 19,
+        "endChar": 42
+      },
+      "revId": "feb28ecac5ee5cf8b8522f0df30084e35bcc85dd",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c601bc69_a676a6cd",
