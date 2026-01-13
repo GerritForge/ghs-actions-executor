@@ -22,6 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.internal.storage.file.GC;
 import org.eclipse.jgit.internal.storage.file.PackFile;
 import org.eclipse.jgit.lib.ObjectId;
 import org.junit.Test;
@@ -77,6 +78,26 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
 
     // and then repo is still operable
     pushAndGenerateNewBitmap();
+  }
+
+  @Test
+  public void applyPreserveOutdatedBitmapsActionShouldNotPreserveOutdatedIfCannotHoldLock()
+      throws Exception {
+    pushAndGenerateNewBitmap();
+    File pack = findMostRecentPack();
+
+    GC gc = new GC(repo);
+    GC.PidLock lock = gc.new PidLock();
+    lock.lock();
+
+    ActionResult result = new PreserveOutdatedBitmapsAction().apply(testRepoPath.toString());
+    assertThat(result.isSuccessful()).isFalse();
+    assertThat(result.getMessage())
+        .startsWith(
+            "Skipped preserve packs for repository " + testRepoGit.getRepository().getIdentifier());
+
+    assertThat(pack.isFile()).isTrue();
+    assertThat(preservedPath.toFile().isFile()).isFalse();
   }
 
   @Test
