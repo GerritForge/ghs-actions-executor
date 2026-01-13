@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b07aadf7_3685bf9b",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerationAction.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-01-13T11:36:15Z",
+      "side": 1,
+      "message": "should this not be `false`?",
+      "range": {
+        "startLine": 52,
+        "startChar": 10,
+        "endLine": 52,
+        "endChar": 14
+      },
+      "revId": "bf026279638c79a0c9bd4d767e930270aa959148",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73da8cb3_db808c68",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/BitmapGenerationActionTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-01-13T11:36:15Z",
+      "side": 1,
+      "message": "should we also add a test asserting the pid __is generated__ when running the action?",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 82
+      },
+      "revId": "bf026279638c79a0c9bd4d767e930270aa959148",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "267c3752_5725e82f",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/BitmapGenerationActionTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-01-13T11:36:15Z",
+      "side": 1,
+      "message": "should this be false?",
+      "range": {
+        "startLine": 113,
+        "startChar": 38,
+        "endLine": 113,
+        "endChar": 44
+      },
+      "revId": "bf026279638c79a0c9bd4d767e930270aa959148",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8852753f_df735f8f",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/BitmapGenerationActionTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-01-13T11:36:15Z",
+      "side": 1,
+      "message": "this is not strictly true, right? The presence of the pid does not suggest there is a bitmap generation already running. It could be due to any other activity (i.e. GC, PreserveOutdatedBitmap, etc).\n\nI think bailing out with this error suggests concurrency **with the same action**, which might be misleading.\n\nWDYT?",
+      "range": {
+        "startLine": 114,
+        "startChar": 48,
+        "endLine": 114,
+        "endChar": 81
+      },
+      "revId": "bf026279638c79a0c9bd4d767e930270aa959148",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e12cd5b9_6eb759ec",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/BitmapGenerationActionTest.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-01-13T11:36:15Z",
+      "side": 1,
+      "message": "are we not missing an assertion on the bitmap not being generated?",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 3
+      },
+      "revId": "bf026279638c79a0c9bd4d767e930270aa959148",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
