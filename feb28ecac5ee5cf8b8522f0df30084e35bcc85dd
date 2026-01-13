@@ -62,6 +62,30 @@
       },
       "revId": "feb28ecac5ee5cf8b8522f0df30084e35bcc85dd",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "284a92b3_c519c709",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-01-13T11:17:36Z",
+      "side": 1,
+      "message": "No the check is more complex. See my comment here [1].\n\n[1]: https://review.gerrithub.io/c/GerritForge/ghs-actions-executor/+/1228972/comments/dcfb8d9c_7c1b6dafz",
+      "parentUuid": "c601bc69_a676a6cd",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 44
+      },
+      "revId": "feb28ecac5ee5cf8b8522f0df30084e35bcc85dd",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
