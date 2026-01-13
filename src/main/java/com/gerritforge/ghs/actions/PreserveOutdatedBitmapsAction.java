@@ -20,6 +20,7 @@ import static org.eclipse.jgit.internal.storage.pack.PackExt.INDEX;
 import static org.eclipse.jgit.internal.storage.pack.PackExt.PACK;
 
 import com.google.common.flogger.FluentLogger;
+import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.channels.FileChannel;
@@ -33,8 +34,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import org.eclipse.jgit.annotations.Nullable;
+import org.eclipse.jgit.internal.storage.file.FileRepository;
+import org.eclipse.jgit.internal.storage.file.GC;
 import org.eclipse.jgit.internal.storage.pack.PackExt;
 import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 class PreserveOutdatedBitmapsAction implements Action {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
@@ -51,42 +55,68 @@ class PreserveOutdatedBitmapsAction implements Action {
 
   @Override
   public ActionResult apply(String repositoryPath) {
+    Optional<Path> snapshot;
     try {
-      Optional<Path> snapshot = BitmapGenerationLog.snapshotLog(repositoryPath);
-      snapshot.ifPresentOrElse(
-          snapshotPath -> {
-            try {
-              Path preservedDir = ensurePreservedDir(repositoryPath);
-              Path packsDir = preservedDir.getParent();
-              Path logPath = BitmapGenerationLog.logPath(repositoryPath);
-              Set<ObjectId> entriesFromLog =
-                  BitmapGenerationLog.readAllEntriesFromLog(snapshotPath);
-
-              PreserveInfo info = preserveOldPacks(preservedDir, packsDir, entriesFromLog);
-              logger.atInfo().log(
-                  "PreserveOutdatedBitmapsAction processed %d files in %s repository",
-                  info.files(), repositoryPath);
-              Files.deleteIfExists(snapshotPath);
-              if (info.last.isPresent()) {
-                overwriteSingleObjectIdInLog(info.last.get(), repositoryPath);
-              } else {
-                logger.atInfo().log("No entries to keep in %s. Removing.", logPath.getFileName());
-                Files.deleteIfExists(logPath);
-              }
-            } catch (IOException e) {
-              logger.atSevere().withCause(e).log(
-                  "Preserving pack files for log %s failed.", snapshotPath);
-              throw new UncheckedIOException(e);
-            }
-          },
-          () -> logger.atInfo().log("No packs to preserve in %s repository", repositoryPath));
-    } catch (IOException | UncheckedIOException e) {
+      snapshot = BitmapGenerationLog.snapshotLog(repositoryPath);
+    } catch (IOException e) {
       logger.atSevere().withCause(e).log(
           "Preserve packs failed for the repository path %s", repositoryPath);
       return new ActionResult(
           false, String.format("Preserve packs action failed, message: %s", e.getMessage()));
     }
-    return new ActionResult(true);
+
+    if (snapshot.isEmpty()) {
+      logger.atInfo().log("No packs to preserve in %s repository", repositoryPath);
+      return new ActionResult(true);
+    }
+
+    Path snapshotPath = snapshot.get();
+    FileRepositoryBuilder repositoryBuilder =
+        new FileRepositoryBuilder()
+            .setGitDir(new File(repositoryPath))
+            .readEnvironment()
+            .findGitDir();
+
+    try (FileRepository repo = (FileRepository) repositoryBuilder.build()) {
+      Path preservedDir = ensurePreservedDir(repositoryPath);
+      Path packsDir = preservedDir.getParent();
+      Path logPath = BitmapGenerationLog.logPath(repositoryPath);
+
+      GC gc = new GC(repo);
+      try (GC.PidLock lock = gc.new PidLock()) {
+        if (!lock.lock()) {
+          throw new GcLockHeldException(lock.getPidFile());
+        }
+
+        Set<ObjectId> entriesFromLog = BitmapGenerationLog.readAllEntriesFromLog(snapshotPath);
+        PreserveInfo info = preserveOldPacks(preservedDir, packsDir, entriesFromLog);
+
+        logger.atInfo().log(
+            "PreserveOutdatedBitmapsAction processed %d files in %s repository",
+            info.files(), repositoryPath);
+
+        Files.deleteIfExists(snapshotPath);
+        if (info.last.isPresent()) {
+          overwriteSingleObjectIdInLog(info.last.get(), repositoryPath);
+        } else {
+          logger.atInfo().log("No entries to keep in %s. Removing.", logPath.getFileName());
+          Files.deleteIfExists(logPath);
+        }
+      }
+
+      return new ActionResult(true);
+    } catch (GcLockHeldException e) {
+      logger.atWarning().withCause(e).log(
+          "Skipped preserve packs for repository %s", repositoryPath);
+      return new ActionResult(
+          false,
+          String.format(
+              "Skipped preserve packs for repository %s. Cannot lock gc.pid.", repositoryPath));
+    } catch (IOException e) {
+      logger.atSevere().withCause(e).log("Preserving pack files for log %s failed.", snapshotPath);
+      return new ActionResult(
+          false, String.format("Preserve packs action failed, message: %s", e.getMessage()));
+    }
   }
 
   private static void overwriteSingleObjectIdInLog(ObjectId last, String repositoryPath)
