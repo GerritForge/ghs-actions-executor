@@ -22,6 +22,30 @@
       },
       "revId": "363a06df23f556ee9d248c9926e75041b149d4f3",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9ffebc3_2215cff3",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/PreserveOutdatedBitmapsActionTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-01-13T15:11:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77dd4503_e7fdde12",
+      "range": {
+        "startLine": 238,
+        "startChar": 3,
+        "endLine": 252,
+        "endChar": 3
+      },
+      "revId": "363a06df23f556ee9d248c9926e75041b149d4f3",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
