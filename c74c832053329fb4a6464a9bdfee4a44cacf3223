@@ -1,4 +1,28 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04b29e89_3b6949d4",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerator.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-01-14T09:04:14Z",
+      "side": 1,
+      "message": "Can we make it switchable? So that we can decide to run it even if there is a concurrent GC?",
+      "range": {
+        "startLine": 120,
+        "startChar": 9,
+        "endLine": 120,
+        "endChar": 43
+      },
+      "revId": "c74c832053329fb4a6464a9bdfee4a44cacf3223",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ],
   "submitRequirementResults": []
 }
