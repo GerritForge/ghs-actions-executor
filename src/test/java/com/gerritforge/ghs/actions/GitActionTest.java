@@ -85,11 +85,17 @@ public abstract class GitActionTest {
     testRepoGit.close();
   }
 
+<<<<<<< PATCH SET (79e926dc442dd9921245983f4e7f8741b7106731 Honour the gc.prunePackExpire when moving to /preserved)
+  protected void setPrunePackExpire(String prunePackExpire) throws IOException {
+    FileBasedConfig repoConfig = repo.getConfig();
+    repoConfig.setString("gc", null, "prunePackExpire", prunePackExpire);
+=======
   protected void setAllowConcurrentBitmapGeneration(boolean allowConcurrentBitmapGeneration)
       throws IOException {
     FileBasedConfig repoConfig = repo.getConfig();
     repoConfig.setBoolean(
         "ghs", null, "allowConcurrentBitmapGeneration", allowConcurrentBitmapGeneration);
+>>>>>>> BASE      (f0ca86b3216b438693de4db410bb246dc6a79dba Revert "Use ssh for fetching JGit changes")
     repoConfig.save();
   }
 
