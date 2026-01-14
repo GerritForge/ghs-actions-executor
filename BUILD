@@ -37,6 +37,7 @@ java_library(
     srcs = glob(["src/main/java/**/*.java"]),
     deps = [
         "//lib:gson",
+        "//lib:guava",
         "//lib:jgit",
         "//lib/errorprone:annotations",
         "//lib/flogger:api",
