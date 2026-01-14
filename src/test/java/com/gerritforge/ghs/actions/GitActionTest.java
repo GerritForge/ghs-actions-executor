@@ -85,6 +85,11 @@ public abstract class GitActionTest {
     testRepoGit.close();
   }
 
+  protected void setPrunePackExpire(String prunePackExpire) throws IOException {
+    FileBasedConfig repoConfig = repo.getConfig();
+    repoConfig.setString("gc", null, "prunePackExpire", prunePackExpire);
+  }
+
   protected void setAllowConcurrentBitmapGeneration(boolean allowConcurrentBitmapGeneration)
       throws IOException {
     FileBasedConfig repoConfig = repo.getConfig();
