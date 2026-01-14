@@ -20,7 +20,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.List;
+
+import com.google.common.base.Stopwatch;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.internal.storage.file.PackFile;
 import org.eclipse.jgit.lib.ObjectId;
@@ -50,6 +53,8 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
 
   @Test
   public void applyPreserveOutdatedBitmapsActionShouldPreserveOutdated() throws Exception {
+    setPrunePackExpire("now");
+
     // when two bitmaps are generated
     PackFile olderPack = pushAndGenerateNewBitmap();
     PackFile newestPack = pushAndGenerateNewBitmap();
@@ -80,7 +85,46 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
   }
 
   @Test
+  public void applyPreserveOutdatedBitmapsActionShouldKeepPackfilesNotExpiredYet() throws Exception {
+    Duration pruneTime = Duration.ofSeconds(10L);
+    setPrunePackExpire(pruneTime.getSeconds() + ".seconds.ago");
+
+    PackFile olderPack = pushAndGenerateNewBitmap();
+    PackFile newestPack = pushAndGenerateNewBitmap();
+    Stopwatch timer = Stopwatch.createStarted();
+
+    callPreserveOutdatedBitmapAction();
+    assertThat(listPackfilesInPreservedPath()).isEmpty();
+
+    waitForTimer(timer, pruneTime);
+
+    callPreserveOutdatedBitmapAction();
+    assertThat(listPackfilesInPreservedPath()).contains(olderPack.getName());
+    assertBitmapsLogContainsOnly(newestPack.getId());
+  }
+
+  private void waitForTimer(Stopwatch timer, Duration timerDuration) throws InterruptedException {
+    while (timer.elapsed().compareTo(timerDuration) <= 0) {
+      Thread.sleep(100L);
+    }
+  }
+
+  private void callPreserveOutdatedBitmapAction() {
+    assertThat(new PreserveOutdatedBitmapsAction().apply(testRepoPath.toString()).isSuccessful())
+            .isTrue();
+  }
+
+  private List<String> listPackfilesInPreservedPath() throws IOException {
+    return Files.list(preservedPath)
+            .map(Path::getFileName)
+            .map(Path::toString)
+            .toList();
+  }
+
+  @Test
   public void applyPreserveOutdatedBitmapsActionShouldKeepTheLastInLog() throws Exception {
+    setPrunePackExpire("now");
+
     // when >=one bitmap is generated
     PackFile lastPack = pushAndGenerateNewBitmap();
 
@@ -122,6 +166,8 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
   @Test
   public void reapplyPreserveOutdatedBitmapsActionWhenRepoDidntProgressShouldBeIdempotent()
       throws Exception {
+    setPrunePackExpire("now");
+
     // when >two bitmaps are generated
     PackFile secondToLastPack = pushAndGenerateNewBitmap();
     PackFile lastPack = pushAndGenerateNewBitmap();

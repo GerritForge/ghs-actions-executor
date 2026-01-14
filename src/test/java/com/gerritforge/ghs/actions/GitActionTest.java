@@ -32,6 +32,7 @@ import org.eclipse.jgit.internal.storage.file.PackFile;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.storage.file.FileBasedConfig;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.transport.RefSpec;
 import org.junit.After;
@@ -82,6 +83,12 @@ public abstract class GitActionTest {
   @After
   public void teardown() throws Exception {
     testRepoGit.close();
+  }
+
+  protected void setPrunePackExpire(String prunePackExpire) throws IOException {
+    FileBasedConfig repoConfig = repo.getConfig();
+    repoConfig.setString("gc", null, "prunePackExpire", prunePackExpire);
+    repoConfig.save();
   }
 
   protected String sanitisedTestName() {
