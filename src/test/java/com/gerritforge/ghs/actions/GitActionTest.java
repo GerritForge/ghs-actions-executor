@@ -16,6 +16,8 @@ package com.gerritforge.ghs.actions;
 
 import static com.gerritforge.ghs.actions.PreserveOutdatedBitmapsAction.getMostRecentExistingBitmap;
 import static com.google.common.truth.Truth.assertThat;
+import static org.eclipse.jgit.lib.ConfigConstants.CONFIG_GC_SECTION;
+import static org.eclipse.jgit.lib.ConfigConstants.CONFIG_KEY_PRUNEPACKEXPIRE;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import java.io.File;
@@ -83,6 +85,12 @@ public abstract class GitActionTest {
   @After
   public void teardown() throws Exception {
     testRepoGit.close();
+  }
+
+  protected void setPrunePackExpire(String prunePackExpire) throws IOException {
+    FileBasedConfig repoConfig = repo.getConfig();
+    repoConfig.setString(CONFIG_GC_SECTION, null, CONFIG_KEY_PRUNEPACKEXPIRE, prunePackExpire);
+    repoConfig.save();
   }
 
   protected void setAllowConcurrentBitmapGeneration(boolean allowConcurrentBitmapGeneration)
