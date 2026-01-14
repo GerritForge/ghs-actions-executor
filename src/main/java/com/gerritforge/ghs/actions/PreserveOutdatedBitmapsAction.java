@@ -19,6 +19,7 @@ import static org.eclipse.jgit.internal.storage.pack.PackExt.BITMAP_INDEX;
 import static org.eclipse.jgit.internal.storage.pack.PackExt.INDEX;
 import static org.eclipse.jgit.internal.storage.pack.PackExt.PACK;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.flogger.FluentLogger;
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -28,17 +29,27 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.text.ParseException;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import org.eclipse.jgit.annotations.Nullable;
+import org.eclipse.jgit.internal.storage.file.FileRepository;
+import org.eclipse.jgit.internal.storage.file.FileSnapshot;
 import org.eclipse.jgit.internal.storage.pack.PackExt;
 import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.util.GitTimeParser;
+import org.eclipse.jgit.util.SystemReader;
 
 class PreserveOutdatedBitmapsAction implements Action {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-  private static final PreserveInfo EMPTY = new PreserveInfo(Optional.empty(), 0L);
+  private static final PreserveInfo EMPTY = new PreserveInfo(List.of(), 0L);
+  private static final int PRUNE_PACK_EXPIRE_SECONDS_DEFAULT = 3600;
+  private static final String PRUNE_PACK_EXPIRE_DEFAULT =
+      PRUNE_PACK_EXPIRE_SECONDS_DEFAULT + ".seconds.ago";
 
   private static final Comparator<Path> BY_LAST_MODIFIED =
       (a, b) -> {
@@ -52,6 +63,7 @@ class PreserveOutdatedBitmapsAction implements Action {
   @Override
   public ActionResult apply(String repositoryPath) {
     try {
+      Instant packfilePruneCutoff = getPrunePackExpire(repositoryPath);
       Optional<Path> snapshot = BitmapGenerationLog.snapshotLog(repositoryPath);
       snapshot.ifPresentOrElse(
           snapshotPath -> {
@@ -62,13 +74,14 @@ class PreserveOutdatedBitmapsAction implements Action {
               Set<ObjectId> entriesFromLog =
                   BitmapGenerationLog.readAllEntriesFromLog(snapshotPath);
 
-              PreserveInfo info = preserveOldPacks(preservedDir, packsDir, entriesFromLog);
+              PreserveInfo info =
+                  preserveOldPacks(preservedDir, packsDir, entriesFromLog, packfilePruneCutoff);
               logger.atInfo().log(
                   "PreserveOutdatedBitmapsAction processed %d files in %s repository",
                   info.files(), repositoryPath);
               Files.deleteIfExists(snapshotPath);
-              if (info.last.isPresent()) {
-                overwriteSingleObjectIdInLog(info.last.get(), repositoryPath);
+              if (!info.packIds.isEmpty()) {
+                overwriteObjectIdsInLog(info.packIds, repositoryPath);
               } else {
                 logger.atInfo().log("No entries to keep in %s. Removing.", logPath.getFileName());
                 Files.deleteIfExists(logPath);
@@ -89,7 +102,26 @@ class PreserveOutdatedBitmapsAction implements Action {
     return new ActionResult(true);
   }
 
-  private static void overwriteSingleObjectIdInLog(ObjectId last, String repositoryPath)
+  private Instant getPrunePackExpire(String repositoryPath) {
+    try {
+      try (FileRepository repository = new FileRepository(repositoryPath)) {
+        String prunePackExpire = repository.getConfig().getString("gc", null, "prunePackExpire");
+        return GitTimeParser.parseInstant(
+            MoreObjects.firstNonNull(prunePackExpire, PRUNE_PACK_EXPIRE_DEFAULT));
+      }
+    } catch (IOException | ParseException e) {
+      logger.atSevere().withCause(e).log(
+          "Unable read gc.prunePackExpire from Git config: defaulting to %s",
+          PRUNE_PACK_EXPIRE_DEFAULT);
+      return SystemReader.getInstance()
+          .civilNow()
+          .atZone(SystemReader.getInstance().getTimeZoneId())
+          .toInstant()
+          .minusSeconds(PRUNE_PACK_EXPIRE_SECONDS_DEFAULT);
+    }
+  }
+
+  private static void overwriteObjectIdsInLog(List<ObjectId> packIds, String repositoryPath)
       throws IOException {
     Path tempFile = Files.createTempFile(".ghs-packs", ".tmp");
     try (FileChannel logChannel = BitmapGenerationLog.openLogChannel(repositoryPath);
@@ -97,8 +129,12 @@ class PreserveOutdatedBitmapsAction implements Action {
         FileChannel tempChannel =
             FileChannel.open(tempFile, StandardOpenOption.WRITE, StandardOpenOption.APPEND)) {
 
-      byte[] raw = new byte[(int) ID_LENGTH];
-      last.copyRawTo(raw, 0);
+      byte[] raw = new byte[(int) ID_LENGTH * packIds.size()];
+      int o = 0;
+      for (ObjectId packId : packIds) {
+        packId.copyRawTo(raw, o);
+        o += (int) ID_LENGTH;
+      }
       BitmapGenerationLog.writePackId(raw, tempChannel);
 
       FileChannel sourceChannel = (FileChannel) lock.acquiredBy();
@@ -138,7 +174,8 @@ class PreserveOutdatedBitmapsAction implements Action {
   }
 
   private PreserveInfo preserveOldPacks(
-      Path preservedDir, Path packsDir, Set<ObjectId> packEntriesInLog) throws IOException {
+      Path preservedDir, Path packsDir, Set<ObjectId> packEntriesInLog, Instant packfilePruneCutoff)
+      throws IOException {
     if (packEntriesInLog.isEmpty()) {
       logger.atFine().log("No entries found in log. Nothing to preserve.");
       return EMPTY;
@@ -150,7 +187,7 @@ class PreserveOutdatedBitmapsAction implements Action {
       /* don't return here, we still want to move log-referenced packs to `preserved`, if any exist.*/
     }
 
-    Optional<ObjectId> maybePackToKeepInLog = Optional.empty();
+    List<ObjectId> packsToKeepInLog = new ArrayList<>();
     long numberOfFilesMovedToPreserved = 0L;
     for (ObjectId packId : packEntriesInLog) {
       String packName = String.format("pack-%s", packId.getName());
@@ -161,13 +198,20 @@ class PreserveOutdatedBitmapsAction implements Action {
           && packBitmapPath.getFileName().equals(mostRecentBitmap.getFileName())) {
         logger.atInfo().log(
             "%s is associated to the most recent bitmap. Do not move to preserved.", packName);
-        maybePackToKeepInLog = Optional.of(packId);
+        packsToKeepInLog.add(packId);
+        continue;
+      }
+
+      FileSnapshot packBitmapSnapshot = FileSnapshot.save(packBitmapPath.toFile());
+      if (packBitmapSnapshot.lastModifiedInstant().isAfter(packfilePruneCutoff)) {
+        logger.atInfo().log("%s has not expired. Do not move to preserved.", packName);
+        packsToKeepInLog.add(packId);
         continue;
       }
 
       numberOfFilesMovedToPreserved += movePacksToPreserved(packsDir, preservedDir, packId);
     }
-    return new PreserveInfo(maybePackToKeepInLog, numberOfFilesMovedToPreserved);
+    return new PreserveInfo(packsToKeepInLog, numberOfFilesMovedToPreserved);
   }
 
   private static long movePacksToPreserved(Path packsDir, Path preservedDir, ObjectId packId)
@@ -194,5 +238,5 @@ class PreserveOutdatedBitmapsAction implements Action {
     return preservedPath;
   }
 
-  private record PreserveInfo(Optional<ObjectId> last, long files) {}
+  private record PreserveInfo(List<ObjectId> packIds, long files) {}
 }
