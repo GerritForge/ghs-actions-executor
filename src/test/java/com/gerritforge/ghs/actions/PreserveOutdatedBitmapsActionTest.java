@@ -25,7 +25,6 @@ import java.time.Duration;
 import java.util.List;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.internal.storage.file.PackFile;
-import org.eclipse.jgit.internal.storage.pack.PackExt;
 import org.eclipse.jgit.lib.ObjectId;
 import org.junit.Test;
 
@@ -57,6 +56,8 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
 
     // when two bitmaps are generated
     PackFile olderPack = pushAndGenerateNewBitmap();
+    String olderPackPreservedName =
+        olderPack.createPreservedForDirectory(testRepoPath.toFile()).getName();
     PackFile newestPack = pushAndGenerateNewBitmap();
 
     // and preserve outdated bitmap action is called
@@ -66,7 +67,7 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
     // then the older pack is preserved
     assertThat(
             Files.list(preservedPath)
-                .filter(p -> p.toString().contains(olderPack.getName()))
+                .filter(p -> p.toString().contains(olderPackPreservedName))
                 .findFirst())
         .isPresent();
 
@@ -91,9 +92,10 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
     setPrunePackExpire(pruneTime.getSeconds() + ".seconds.ago");
 
     PackFile olderPack = pushAndGenerateNewBitmap();
-    String olderPackName = olderPack.getName();
-    String olderPackIndex = olderPack.create(PackExt.INDEX).getName();
-    String olderPackBitmap = olderPack.create(PackExt.BITMAP_INDEX).getName();
+    String preservedOlderPackName =
+        olderPack.createPreservedForDirectory(testRepoPath.toFile()).getName();
+    String preservedOlderPackIndex = preservedOlderPackName.replace("-pack", "-idx");
+    String preservedOlderPackBitmap = preservedOlderPackName.replace("-pack", "-bitmap");
     PackFile newestPack = pushAndGenerateNewBitmap();
     Stopwatch timer = Stopwatch.createStarted();
 
@@ -104,7 +106,8 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
 
     callPreserveOutdatedBitmapAction();
     List<String> preservedFiles = listPackfilesInPreservedPath();
-    assertThat(preservedFiles).containsExactly(olderPackName, olderPackIndex, olderPackBitmap);
+    assertThat(preservedFiles)
+        .containsExactly(preservedOlderPackName, preservedOlderPackIndex, preservedOlderPackBitmap);
     assertBitmapsLogContainsOnly(newestPack.getId());
   }
 
