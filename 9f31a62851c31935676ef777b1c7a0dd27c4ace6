@@ -24,6 +24,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11048ff8_0a9d4fc5",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/Main.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-01-15T18:04:35Z",
+      "side": 1,
+      "message": "Yes, it is way simpler reading the config from the repository.",
+      "parentUuid": "be0a14ca_b30e0172",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 0
+      },
+      "revId": "9f31a62851c31935676ef777b1c7a0dd27c4ace6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f01085ca_9d820221",
@@ -41,6 +65,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b97c3e7c_c3ee996d",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/SequentialBitmapGenerationOption.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-01-15T18:04:35Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f01085ca_9d820221",
+      "revId": "9f31a62851c31935676ef777b1c7a0dd27c4ace6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cbd48e51_71cab173",
@@ -54,6 +96,30 @@
       "writtenOn": "2026-01-15T14:26:43Z",
       "side": 1,
       "message": "Are you sure? Should that be the other way around?",
+      "range": {
+        "startLine": 102,
+        "startChar": 51,
+        "endLine": 102,
+        "endChar": 74
+      },
+      "revId": "9f31a62851c31935676ef777b1c7a0dd27c4ace6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "413d237d_31e81ebc",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/BitmapGenerationActionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-01-15T18:04:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cbd48e51_71cab173",
       "range": {
         "startLine": 102,
         "startChar": 51,
