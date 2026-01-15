@@ -42,8 +42,10 @@ import java.util.Set;
 import org.eclipse.jgit.annotations.Nullable;
 import org.eclipse.jgit.internal.storage.file.FileRepository;
 import org.eclipse.jgit.internal.storage.file.FileSnapshot;
+import org.eclipse.jgit.internal.storage.file.PackFile;
 import org.eclipse.jgit.internal.storage.pack.PackExt;
 import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.util.FileUtils;
 import org.eclipse.jgit.util.GitTimeParser;
 import org.eclipse.jgit.util.SystemReader;
 
@@ -227,10 +229,11 @@ class PreserveOutdatedBitmapsAction implements Action {
       throws IOException {
     long numberOfFilesMovedToPreserved = 0L;
     for (PackExt ext : List.of(BITMAP_INDEX, INDEX, PACK)) {
-      Path sourcePackFile =
-          packsDir.resolve(String.format("pack-%s.%s", packId.getName(), ext.getExtension()));
-      Path destinationPackFile = preservedDir.resolve(sourcePackFile.getFileName());
-      if (BitmapGenerationLog.move(sourcePackFile, destinationPackFile)) {
+      PackFile packFile =
+          new PackFile(packsDir.toFile(), "pack-" + packId.getName() + "." + ext.getExtension());
+      if (packFile.getAbsoluteFile().exists()) {
+        PackFile oldPackFile = packFile.createPreservedForDirectory(preservedDir.toFile());
+        FileUtils.rename(packFile, oldPackFile);
         numberOfFilesMovedToPreserved++;
       }
     }

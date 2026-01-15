@@ -57,6 +57,8 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
 
     // when two bitmaps are generated
     PackFile olderPack = pushAndGenerateNewBitmap();
+    String olderPackPreservedName =
+        olderPack.createPreservedForDirectory(testRepoPath.toFile()).getName();
     PackFile newestPack = pushAndGenerateNewBitmap();
 
     // and preserve outdated bitmap action is called
@@ -66,7 +68,7 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
     // then the older pack is preserved
     assertThat(
             Files.list(preservedPath)
-                .filter(p -> p.toString().contains(olderPack.getName()))
+                .filter(p -> p.toString().contains(olderPackPreservedName))
                 .findFirst())
         .isPresent();
 
@@ -91,6 +93,8 @@ public class PreserveOutdatedBitmapsActionTest extends GitActionTest {
     setPrunePackExpire(pruneTime.getSeconds() + ".seconds.ago");
 
     PackFile olderPack = pushAndGenerateNewBitmap();
+    String preservedOlderPackName =
+        olderPack.createPreservedForDirectory(testRepoPath.toFile()).getName();
     String olderPackName = olderPack.getName();
     String olderPackIndex = olderPack.create(PackExt.INDEX).getName();
     String olderPackBitmap = olderPack.create(PackExt.BITMAP_INDEX).getName();
