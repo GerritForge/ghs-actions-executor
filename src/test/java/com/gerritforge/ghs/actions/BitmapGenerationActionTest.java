@@ -71,8 +71,10 @@ public class BitmapGenerationActionTest extends GitActionTest {
   }
 
   @Test
-  public void applyBitmapGenerationActionShouldNotGenerateBitMapIfAlreadyRunning()
+  public void applySequentialBitmapGenerationActionShouldNotGenerateBitMapIfAlreadyRunning()
       throws Exception {
+    setSequentialBitmapGeneration(true);
+
     GC gc = new GC(repo);
     GC.PidLock lock = gc.new PidLock();
     lock.lock();
@@ -95,5 +97,31 @@ public class BitmapGenerationActionTest extends GitActionTest {
             "Skipped bitmap generation for repository "
                 + testRepoGit.getRepository().getIdentifier());
     assertThat(bitmapsCountBefore).isEqualTo(bitmapsCountAfter);
+  }
+
+  @Test
+  public void applyConcurrentBitmapGenerationActionShouldGenerateBitMapIfAlreadyRunning()
+      throws Exception {
+    setSequentialBitmapGeneration(false);
+
+    pushNewCommitToBranch();
+    GC gc = new GC(repo);
+    GC.PidLock lock = gc.new PidLock();
+    lock.lock();
+
+    long bitmapsCountBefore =
+        Files.list(testRepoPath.resolve("objects/pack"))
+            .filter(p -> p.toString().endsWith(".bitmap"))
+            .count();
+
+    ActionResult result = new BitmapGenerationAction().apply(testRepoPath.toString());
+
+    long bitmapsCountAfter =
+        Files.list(testRepoPath.resolve("objects/pack"))
+            .filter(p -> p.toString().endsWith(".bitmap"))
+            .count();
+
+    assertThat(result.isSuccessful()).isTrue();
+    assertThat(bitmapsCountBefore + 1).isEqualTo(bitmapsCountAfter);
   }
 }
