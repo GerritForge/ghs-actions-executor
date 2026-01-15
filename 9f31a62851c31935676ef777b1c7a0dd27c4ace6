@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be0a14ca_b30e0172",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/Main.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-01-15T14:26:43Z",
+      "side": 1,
+      "message": "This looks complex and also forces the model to know about this extra flag.\nWhy not simply reading this configuration form the $GIT_REPO/config instead?\n\nThat would have three advantages:\n1. Simpler to code\n2. Simpler to enable/disable on a per-repo basis (just some repos may have criticality on concurrency, but not others)\n3. No impact on Franco\u0027s model\n\nWDYT?",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 0
+      },
+      "revId": "9f31a62851c31935676ef777b1c7a0dd27c4ace6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f01085ca_9d820221",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/SequentialBitmapGenerationOption.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-01-15T14:26:43Z",
+      "side": 1,
+      "message": "What\u0027s the purpose of a whole class for a simple boolean flag?",
+      "revId": "9f31a62851c31935676ef777b1c7a0dd27c4ace6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbd48e51_71cab173",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/BitmapGenerationActionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-01-15T14:26:43Z",
+      "side": 1,
+      "message": "Are you sure? Should that be the other way around?",
+      "range": {
+        "startLine": 102,
+        "startChar": 51,
+        "endLine": 102,
+        "endChar": 74
+      },
+      "revId": "9f31a62851c31935676ef777b1c7a0dd27c4ace6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
