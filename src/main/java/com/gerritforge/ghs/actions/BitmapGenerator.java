@@ -74,6 +74,7 @@ import org.eclipse.jgit.util.FileUtils;
  */
 public class BitmapGenerator {
   private static final FluentLogger LOG = FluentLogger.forEnclosingClass();
+  private static final boolean DEFAULT_ALLOW_CONCURRENT_BITMAP_GENERATION = true;
 
   private final FileRepository repo;
 
@@ -105,8 +106,36 @@ public class BitmapGenerator {
    *     reflog-entries or during writing to the packfiles {@link java.io.IOException} occurs
    */
   public Collection<Pack> repackAndGenerateBitmap() throws IOException {
+    if (allowConcurrentBitmapGeneration()) {
+      return doRepackAndGenerateBitmap();
+    }
 
-    long time = System.currentTimeMillis();
+    GC gc = new GC(repo);
+    try (GC.PidLock lock = gc.new PidLock()) {
+      if (!lock.lock()) {
+        throw new GcLockHeldException(lock.getPidFile());
+      }
+      return doRepackAndGenerateBitmap();
+    }
+  }
+
+  private boolean allowConcurrentBitmapGeneration() {
+    try {
+      return repo.getConfig()
+          .getBoolean(
+              "ghs",
+              null,
+              "allowConcurrentBitmapGeneration",
+              DEFAULT_ALLOW_CONCURRENT_BITMAP_GENERATION);
+    } catch (RuntimeException e) {
+      LOG.atWarning().withCause(e).log(
+          "Unable read ghs.allowConcurrentBitmapGeneration from Git config: defaulting to %s",
+          DEFAULT_ALLOW_CONCURRENT_BITMAP_GENERATION);
+      return DEFAULT_ALLOW_CONCURRENT_BITMAP_GENERATION;
+    }
+  }
+
+  private Collection<Pack> doRepackAndGenerateBitmap() throws IOException {
     Collection<Ref> refsBefore = getAllRefs();
 
     Set<ObjectId> allHeadsAndTags = new HashSet<>();
@@ -116,79 +145,73 @@ public class BitmapGenerator {
     Set<ObjectId> tagTargets = new HashSet<>();
     Set<ObjectId> indexObjects = listNonHEADIndexObjects();
 
-    GC gc = new GC(repo);
-    try (GC.PidLock lock = gc.new PidLock()) {
-      if (!lock.lock()) {
-        throw new GcLockHeldException(lock.getPidFile());
+    Set<ObjectId> refsToExcludeFromBitmap =
+        repo.getRefDatabase().getRefsByPrefix(pconfig.getBitmapExcludedRefsPrefixes()).stream()
+            .map(Ref::getObjectId)
+            .collect(Collectors.toSet());
+
+    for (Ref ref : refsBefore) {
+      checkCancelled();
+      nonHeads.addAll(listRefLogObjects(ref, 0));
+      if (ref.isSymbolic() || ref.getObjectId() == null) {
+        continue;
       }
-      Set<ObjectId> refsToExcludeFromBitmap =
-          repo.getRefDatabase().getRefsByPrefix(pconfig.getBitmapExcludedRefsPrefixes()).stream()
-              .map(Ref::getObjectId)
-              .collect(Collectors.toSet());
-
-      for (Ref ref : refsBefore) {
-        checkCancelled();
-        nonHeads.addAll(listRefLogObjects(ref, 0));
-        if (ref.isSymbolic() || ref.getObjectId() == null) {
-          continue;
-        }
-        if (isHead(ref)) {
-          allHeads.add(ref.getObjectId());
-        } else if (isTag(ref)) {
-          allTags.add(ref.getObjectId());
-        } else {
-          nonHeads.add(ref.getObjectId());
-        }
-        if (ref.getPeeledObjectId() != null) {
-          tagTargets.add(ref.getPeeledObjectId());
-        }
+      if (isHead(ref)) {
+        allHeads.add(ref.getObjectId());
+      } else if (isTag(ref)) {
+        allTags.add(ref.getObjectId());
+      } else {
+        nonHeads.add(ref.getObjectId());
       }
-
-      List<ObjectIdSet> excluded = new LinkedList<>();
-      for (Pack p : repo.getObjectDatabase().getPacks()) {
-        checkCancelled();
-        if (!shouldPackKeptObjects() && p.shouldBeKept()) {
-          excluded.add(p.getIndex());
-        }
+      if (ref.getPeeledObjectId() != null) {
+        tagTargets.add(ref.getPeeledObjectId());
       }
-
-      // Don't exclude tags that are also branch tips
-      allTags.removeAll(allHeads);
-      allHeadsAndTags.addAll(allHeads);
-      allHeadsAndTags.addAll(allTags);
-
-      // Hoist all branch tips and tags earlier in the pack file
-      tagTargets.addAll(allHeadsAndTags);
-      nonHeads.addAll(indexObjects);
-
-      // Combine the GC_REST objects into the GC pack if requested
-      if (pconfig.getSinglePack()) {
-        allHeadsAndTags.addAll(nonHeads);
-        nonHeads.clear();
-      }
-
-      List<Pack> ret = new ArrayList<>(2);
-      Pack heads = null;
-      if (!allHeadsAndTags.isEmpty()) {
-        heads =
-            writePack(
-                allHeadsAndTags,
-                PackWriter.NONE,
-                allTags,
-                refsToExcludeFromBitmap,
-                tagTargets,
-                excluded,
-                true);
-        if (heads != null) {
-          ret.add(heads);
-          excluded.add(0, heads.getIndex());
-        }
-      }
-
-      deleteTempPacksIdx();
-
-      return ret;
     }
+
+    List<ObjectIdSet> excluded = new LinkedList<>();
+    for (Pack p : repo.getObjectDatabase().getPacks()) {
+      checkCancelled();
+      if (!shouldPackKeptObjects() && p.shouldBeKept()) {
+        excluded.add(p.getIndex());
+      }
+    }
+
+    // Don't exclude tags that are also branch tips
+    allTags.removeAll(allHeads);
+    allHeadsAndTags.addAll(allHeads);
+    allHeadsAndTags.addAll(allTags);
+
+    // Hoist all branch tips and tags earlier in the pack file
+    tagTargets.addAll(allHeadsAndTags);
+    nonHeads.addAll(indexObjects);
+
+    // Combine the GC_REST objects into the GC pack if requested
+    if (pconfig.getSinglePack()) {
+      allHeadsAndTags.addAll(nonHeads);
+      nonHeads.clear();
+    }
+
+    List<Pack> ret = new ArrayList<>(2);
+    Pack heads = null;
+    if (!allHeadsAndTags.isEmpty()) {
+      heads =
+          writePack(
+              allHeadsAndTags,
+              PackWriter.NONE,
+              allTags,
+              refsToExcludeFromBitmap,
+              tagTargets,
+              excluded,
+              true);
+      if (heads != null) {
+        ret.add(heads);
+        excluded.add(0, heads.getIndex());
+      }
+    }
+
+    deleteTempPacksIdx();
+
+    return ret;
   }
 
   private static boolean isHead(Ref ref) {
