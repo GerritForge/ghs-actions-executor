@@ -21,10 +21,14 @@ import com.gerritforge.ghs.actions.stats.StatsResult;
 import com.google.common.flogger.FluentLogger;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Set;
 
 public class Main {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
   private static boolean verbose = false;
+  private static boolean sequentialBitmapGeneration = false;
+
+  private static final Set<String> AVAILABLE_FLAGS = Set.of("-v", "--sequential-bitmap-generation");
 
   public static void main(String[] args) {
     if (args.length < 2) {
@@ -37,6 +41,19 @@ public class Main {
       args = removeFirstElement(args);
     }
 
+    while (AVAILABLE_FLAGS.contains(args[0])) {
+      switch (args[0]) {
+        case "-v":
+          verbose = true;
+          args = removeFirstElement(args);
+          break;
+        case "--sequential-bitmap-generation":
+          sequentialBitmapGeneration = true;
+          args = removeFirstElement(args);
+          break;
+      }
+    }
+
     String action = args[0];
     String repositoryPath = args[1];
     String outputPath = args.length > 2 ? args[2] : null;
@@ -46,6 +63,7 @@ public class Main {
       Class<Action> actionClass = (Class<Action>) Class.forName(className);
       Action instance = actionClass.getDeclaredConstructor().newInstance();
       instance.setVerbose(verbose);
+      instance.setSequentialBitmapGeneration(sequentialBitmapGeneration);
 
       StatsCollector statsCollector = StatsCollector.start();
 

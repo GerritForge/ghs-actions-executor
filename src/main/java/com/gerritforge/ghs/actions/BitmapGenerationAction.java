@@ -30,7 +30,7 @@ public class BitmapGenerationAction implements Action {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
   public Collection<Pack> prepareBitmap(FileRepository repo) throws IOException {
-    BitmapGenerator repack = new BitmapGenerator(repo, isVerbose());
+    BitmapGenerator repack = new BitmapGenerator(repo, isVerbose(), isSequentialBitmapGeneration());
     return repack.repackAndGenerateBitmap();
   }
 

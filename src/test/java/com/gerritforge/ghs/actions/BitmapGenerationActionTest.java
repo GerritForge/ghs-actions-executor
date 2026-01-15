@@ -71,7 +71,7 @@ public class BitmapGenerationActionTest extends GitActionTest {
   }
 
   @Test
-  public void applyBitmapGenerationActionShouldNotGenerateBitMapIfAlreadyRunning()
+  public void applySequentialBitmapGenerationActionShouldNotGenerateBitMapIfAlreadyRunning()
       throws Exception {
     GC gc = new GC(repo);
     GC.PidLock lock = gc.new PidLock();
@@ -81,8 +81,9 @@ public class BitmapGenerationActionTest extends GitActionTest {
         Files.list(testRepoPath.resolve("objects/pack"))
             .filter(p -> p.toString().endsWith(".bitmap"))
             .count();
-
-    ActionResult result = new BitmapGenerationAction().apply(testRepoPath.toString());
+    BitmapGenerationAction bitmapGenerationAction = new BitmapGenerationAction();
+    bitmapGenerationAction.setSequentialBitmapGeneration(true);
+    ActionResult result = bitmapGenerationAction.apply(testRepoPath.toString());
 
     long bitmapsCountAfter =
         Files.list(testRepoPath.resolve("objects/pack"))
@@ -95,5 +96,30 @@ public class BitmapGenerationActionTest extends GitActionTest {
             "Skipped bitmap generation for repository "
                 + testRepoGit.getRepository().getIdentifier());
     assertThat(bitmapsCountBefore).isEqualTo(bitmapsCountAfter);
+  }
+
+  @Test
+  public void applyConcurrentBitmapGenerationActionShouldNotGenerateBitMapIfAlreadyRunning()
+      throws Exception {
+    pushNewCommitToBranch();
+    GC gc = new GC(repo);
+    GC.PidLock lock = gc.new PidLock();
+    lock.lock();
+
+    long bitmapsCountBefore =
+        Files.list(testRepoPath.resolve("objects/pack"))
+            .filter(p -> p.toString().endsWith(".bitmap"))
+            .count();
+    BitmapGenerationAction bitmapGenerationAction = new BitmapGenerationAction();
+    bitmapGenerationAction.setSequentialBitmapGeneration(false);
+    ActionResult result = bitmapGenerationAction.apply(testRepoPath.toString());
+
+    long bitmapsCountAfter =
+        Files.list(testRepoPath.resolve("objects/pack"))
+            .filter(p -> p.toString().endsWith(".bitmap"))
+            .count();
+
+    assertThat(result.isSuccessful()).isTrue();
+    assertThat(bitmapsCountBefore + 1).isEqualTo(bitmapsCountAfter);
   }
 }
