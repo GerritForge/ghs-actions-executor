@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fb96645_99b48439",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/PreserveOutdatedBitmapsAction.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-01-16T11:43:06Z",
+      "side": 1,
+      "message": "nit: there\u0027s a simpler constructor that we can use\n\n```suggestion\n      PackFile packFile \u003d new PackFile(packsDir.toFile(), packId, ext);\n```",
+      "range": {
+        "startLine": 223,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 97
+      },
+      "revId": "91fb3ff516273df6d5702e1c3f86f9100a1d0cad",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
