@@ -71,6 +71,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "222c1ccb_0fa7ddd6",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/PreserveOutdatedBitmapsAction.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-01-16T09:05:31Z",
+      "side": 1,
+      "message": "nit: could be static",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 61
+      },
+      "revId": "79e926dc442dd9921245983f4e7f8741b7106731",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c43362e3_1763b20a",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/PreserveOutdatedBitmapsAction.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-01-16T09:05:31Z",
+      "side": 1,
+      "message": "nit: could use public constants defined by Jgit here.\n\n```\nrepository.getConfig().getString(\n   ConfigConstants.CONFIG_GC_SECTION, null,\n   ConfigConstants.CONFIG_KEY_PRUNEPACKEXPIRE);\n```",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 97
+      },
+      "revId": "79e926dc442dd9921245983f4e7f8741b7106731",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7d58c0ef_bd5dd5cb",
         "filename": "src/main/java/com/gerritforge/ghs/actions/PreserveOutdatedBitmapsAction.java",
         "patchSetId": 3
@@ -87,6 +133,29 @@
         "startChar": 6,
         "endLine": 120,
         "endChar": 59
+      },
+      "revId": "79e926dc442dd9921245983f4e7f8741b7106731",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd83cc42_a058ef8c",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/PreserveOutdatedBitmapsAction.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-01-16T09:05:31Z",
+      "side": 1,
+      "message": "Do we care about ordering? Have you considered this to be a `Set` instead?",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 55
       },
       "revId": "79e926dc442dd9921245983f4e7f8741b7106731",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
