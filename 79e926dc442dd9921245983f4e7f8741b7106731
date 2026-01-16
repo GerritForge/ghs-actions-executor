@@ -117,6 +117,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f9df4258_73fddfe0",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/PreserveOutdatedBitmapsAction.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-01-16T10:14:43Z",
+      "side": 1,
+      "message": "Since a malformed or missing gc.prunePackExpire is typically an operator issue and we are already falling back to a safe default, `atWarning()` feels more appropriate to avoid noisy logs.",
+      "range": {
+        "startLine": 113,
+        "startChar": 13,
+        "endLine": 113,
+        "endChar": 21
+      },
+      "revId": "79e926dc442dd9921245983f4e7f8741b7106731",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ded1425_eec11dfb",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/PreserveOutdatedBitmapsAction.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-01-16T10:14:43Z",
+      "side": 1,
+      "message": "Unable to read",
+      "range": {
+        "startLine": 114,
+        "startChar": 11,
+        "endLine": 114,
+        "endChar": 22
+      },
+      "revId": "79e926dc442dd9921245983f4e7f8741b7106731",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7d58c0ef_bd5dd5cb",
         "filename": "src/main/java/com/gerritforge/ghs/actions/PreserveOutdatedBitmapsAction.java",
         "patchSetId": 3
