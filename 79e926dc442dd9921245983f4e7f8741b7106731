@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "888892ef_8badf8d5",
+        "filename": "BUILD",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-01-16T08:59:47Z",
+      "side": 1,
+      "message": "Worth reformatting in a separate change",
+      "revId": "79e926dc442dd9921245983f4e7f8741b7106731",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e468a701_51886a98",
+        "filename": "BUILD",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-01-16T08:59:47Z",
+      "side": 1,
+      "message": "can we format in a separate change ?",
+      "revId": "79e926dc442dd9921245983f4e7f8741b7106731",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9aa6a8c8_c39104c1",
+        "filename": "BUILD",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-01-16T08:59:47Z",
+      "side": 1,
+      "message": "can we format in a separate change ?",
+      "revId": "79e926dc442dd9921245983f4e7f8741b7106731",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d55df95_bc3916ba",
+        "filename": "BUILD",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-01-16T08:59:47Z",
+      "side": 1,
+      "message": "Worth reformatting in a separate change",
+      "revId": "79e926dc442dd9921245983f4e7f8741b7106731",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d58c0ef_bd5dd5cb",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/PreserveOutdatedBitmapsAction.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-01-16T08:59:47Z",
+      "side": 1,
+      "message": "Why not using?\n\n```\nGitTimeParser.parseInstant(PRUNE_PACK_EXPIRE_DEFAULT);\n```",
+      "range": {
+        "startLine": 116,
+        "startChar": 6,
+        "endLine": 120,
+        "endChar": 59
+      },
+      "revId": "79e926dc442dd9921245983f4e7f8741b7106731",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f88763f8_8d152695",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/PreserveOutdatedBitmapsAction.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-01-16T08:59:47Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we check the pickfile last modified time? The bitmap is generated after the packfiles. Furthermore the `prunePack` settings refer to packfiles not  bitmaps.",
+      "range": {
+        "startLine": 205,
+        "startChar": 58,
+        "endLine": 205,
+        "endChar": 72
+      },
+      "revId": "79e926dc442dd9921245983f4e7f8741b7106731",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbafbb41_320bed90",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/PreserveOutdatedBitmapsActionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-01-16T08:59:47Z",
+      "side": 1,
+      "message": "This should *ONLY* contain the triplet for this `olderPack` packfile.",
+      "range": {
+        "startLine": 102,
+        "startChar": 47,
+        "endLine": 102,
+        "endChar": 55
+      },
+      "revId": "79e926dc442dd9921245983f4e7f8741b7106731",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
