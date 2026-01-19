@@ -24,6 +24,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3d4feee_dc8c7812",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-01-19T17:02:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfa6f0a8_b01066c4",
+      "range": {
+        "startLine": 7,
+        "startChar": 49,
+        "endLine": 7,
+        "endChar": 59
+      },
+      "revId": "fb7eaa228535ee9fcd12c079597e617e93a9aa5d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8cd92e21_ff2673c8",
@@ -47,6 +71,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7498545_0b9efd51",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-01-19T17:02:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8cd92e21_ff2673c8",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 3
+      },
+      "revId": "fb7eaa228535ee9fcd12c079597e617e93a9aa5d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13bfb608_c4853835",
@@ -60,6 +108,30 @@
       "writtenOn": "2026-01-19T16:26:25Z",
       "side": 1,
       "message": "Nit: consider extracting this in a `public static final` variable and to DRY-out all its literal usages.",
+      "range": {
+        "startLine": 128,
+        "startChar": 15,
+        "endLine": 128,
+        "endChar": 46
+      },
+      "revId": "fb7eaa228535ee9fcd12c079597e617e93a9aa5d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a684d9a_eba1c29d",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-01-19T17:02:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13bfb608_c4853835",
       "range": {
         "startLine": 128,
         "startChar": 15,
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f8b59df2_660abf41",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-01-19T17:02:30Z",
+      "side": 1,
+      "message": "`getConfig()` explicitely returns a `RuntimeException` that\u0027s why I was catching it.",
+      "parentUuid": "6e249edc_e137e4fc",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 34
+      },
+      "revId": "fb7eaa228535ee9fcd12c079597e617e93a9aa5d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "08dffb70_d4617faf",
         "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerator.java",
         "patchSetId": 7
@@ -106,6 +202,30 @@
       "writtenOn": "2026-01-19T16:26:25Z",
       "side": 1,
       "message": "```suggestion\n          \"Unable to read ghs.allowConcurrentBitmapGeneration from Git config: defaulting to %s\",\n```",
+      "range": {
+        "startLine": 132,
+        "startChar": 18,
+        "endLine": 132,
+        "endChar": 22
+      },
+      "revId": "fb7eaa228535ee9fcd12c079597e617e93a9aa5d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea308c9a_09d87d02",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-01-19T17:02:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08dffb70_d4617faf",
       "range": {
         "startLine": 132,
         "startChar": 18,
