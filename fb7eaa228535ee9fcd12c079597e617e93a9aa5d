@@ -191,6 +191,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5b34b053_47bdfae7",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-01-19T20:17:05Z",
+      "side": 1,
+      "message": "Since `RuntimeException` is an `unchecked` exception, we don\u0027t have to handle it necessarely and instead we could let it propagate to the caller.\n\nIf we couldn\u0027t read the configuration for some reason I think the best course of action would be to fail rather than choose a default behaviour.\n\nWDYT?",
+      "parentUuid": "f8b59df2_660abf41",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 34
+      },
+      "revId": "fb7eaa228535ee9fcd12c079597e617e93a9aa5d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "08dffb70_d4617faf",
         "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerator.java",
         "patchSetId": 7
