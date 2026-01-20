@@ -213,6 +213,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b61317a_0805b99e",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/BitmapGenerator.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-01-20T14:08:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b34b053_47bdfae7",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 34
+      },
+      "revId": "fb7eaa228535ee9fcd12c079597e617e93a9aa5d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "08dffb70_d4617faf",
