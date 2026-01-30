@@ -6,7 +6,7 @@ TARGET=bazel-bin/plugins/ghs-actions/executor/ghs-actions-executor.jar
 
 SRCS=$(wildcard plugins/ghs-actions-executor/src/**/*.java)
 
-JGIT_ORIGIN=ssh://eclipse.gerrithub.io:29418/eclipse-jgit/jgit
+JGIT_ORIGIN=https://eclipse.gerrithub.io/eclipse-jgit/jgit
 
 build: ${TARGET}
 
