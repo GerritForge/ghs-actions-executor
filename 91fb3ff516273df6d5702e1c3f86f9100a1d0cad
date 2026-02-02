@@ -22,6 +22,30 @@
       },
       "revId": "91fb3ff516273df6d5702e1c3f86f9100a1d0cad",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5522961_196d854f",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/PreserveOutdatedBitmapsAction.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-02-02T22:07:21Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "2fb96645_99b48439",
+      "range": {
+        "startLine": 223,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 97
+      },
+      "revId": "91fb3ff516273df6d5702e1c3f86f9100a1d0cad",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
