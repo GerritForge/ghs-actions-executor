@@ -15,8 +15,8 @@ genrule(
 java_binary(
     name = "ghs-actions-executor-bin",
     srcs = glob(["src/main/java/**/Main.java"]),
-    resources = ["src/main/resources/log4j.properties"],
     main_class = "com.gerritforge.ghs.actions.Main",
+    resources = ["src/main/resources/log4j.properties"],
     deps = [
         ":ghs-actions-executor_lib",
         "@flogger//jar",
@@ -36,9 +36,9 @@ java_library(
     name = "ghs-actions-executor_lib",
     srcs = glob(["src/main/java/**/*.java"]),
     deps = [
-        "//lib/errorprone:annotations",
         "//lib:gson",
         "//lib:jgit",
+        "//lib/errorprone:annotations",
         "//lib/flogger:api",
         "//lib/log:impl-log4j",
         "//lib/log:log4j",
