@@ -164,6 +164,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e0b0e76_5f44f1af",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/PreserveOutdatedBitmapsAction.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-02-02T20:34:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "222c1ccb_0fa7ddd6",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 61
+      },
+      "revId": "79e926dc442dd9921245983f4e7f8741b7106731",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c43362e3_1763b20a",
@@ -177,6 +201,30 @@
       "writtenOn": "2026-01-16T09:05:31Z",
       "side": 1,
       "message": "nit: could use public constants defined by Jgit here.\n\n```\nrepository.getConfig().getString(\n   ConfigConstants.CONFIG_GC_SECTION, null,\n   ConfigConstants.CONFIG_KEY_PRUNEPACKEXPIRE);\n```",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 97
+      },
+      "revId": "79e926dc442dd9921245983f4e7f8741b7106731",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28b14395_5d0cc40a",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/PreserveOutdatedBitmapsAction.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-02-02T20:34:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c43362e3_1763b20a",
       "range": {
         "startLine": 108,
         "startChar": 0,
@@ -210,6 +258,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "284c87bf_1fba737a",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/PreserveOutdatedBitmapsAction.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-02-02T20:34:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9df4258_73fddfe0",
+      "range": {
+        "startLine": 113,
+        "startChar": 13,
+        "endLine": 113,
+        "endChar": 21
+      },
+      "revId": "79e926dc442dd9921245983f4e7f8741b7106731",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ded1425_eec11dfb",
@@ -223,6 +295,30 @@
       "writtenOn": "2026-01-16T10:14:43Z",
       "side": 1,
       "message": "Unable to read",
+      "range": {
+        "startLine": 114,
+        "startChar": 11,
+        "endLine": 114,
+        "endChar": 22
+      },
+      "revId": "79e926dc442dd9921245983f4e7f8741b7106731",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ce3d113_0dc668a8",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/PreserveOutdatedBitmapsAction.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-02-02T20:34:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ded1425_eec11dfb",
       "range": {
         "startLine": 114,
         "startChar": 11,
@@ -256,6 +352,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a092a79_44394f9c",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/PreserveOutdatedBitmapsAction.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-02-02T20:34:19Z",
+      "side": 1,
+      "message": "I am recovering from an `IOException` or `ParseException` because the `GitTimeParser.parseInstant()` has failed, therefore I cannot invoke the same method again that declares the same exceptions that are supposed to be recovered here.\n\nAdded a comment to explain it.",
+      "parentUuid": "7d58c0ef_bd5dd5cb",
+      "range": {
+        "startLine": 116,
+        "startChar": 6,
+        "endLine": 120,
+        "endChar": 59
+      },
+      "revId": "79e926dc442dd9921245983f4e7f8741b7106731",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd83cc42_a058ef8c",
@@ -279,6 +399,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aca480aa_1906abdb",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/PreserveOutdatedBitmapsAction.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-02-02T20:34:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd83cc42_a058ef8c",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 55
+      },
+      "revId": "79e926dc442dd9921245983f4e7f8741b7106731",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f88763f8_8d152695",
@@ -292,6 +436,30 @@
       "writtenOn": "2026-01-16T08:59:47Z",
       "side": 1,
       "message": "Shouldn\u0027t we check the pickfile last modified time? The bitmap is generated after the packfiles. Furthermore the `prunePack` settings refer to packfiles not  bitmaps.",
+      "range": {
+        "startLine": 205,
+        "startChar": 58,
+        "endLine": 205,
+        "endChar": 72
+      },
+      "revId": "79e926dc442dd9921245983f4e7f8741b7106731",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "313db635_b744d838",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/PreserveOutdatedBitmapsAction.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-02-02T20:34:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f88763f8_8d152695",
       "range": {
         "startLine": 205,
         "startChar": 58,
