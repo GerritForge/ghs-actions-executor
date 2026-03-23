@@ -107,6 +107,13 @@ public abstract class GitActionTest {
     repoConfig.save();
   }
 
+  protected void setPrunePreservedExpiry(String prunePreservedExpire) throws IOException {
+    FileBasedConfig repoConfig = repo.getConfig();
+    repoConfig.setString(
+        CONFIG_GC_SECTION, null, DeletePreservedPacksAction.CONFIG_KEY_PRUNE_PRESERVED_EXPIRY, prunePreservedExpire);
+    repoConfig.save();
+  }
+
   protected void setAllowConcurrentBitmapGeneration(boolean allowConcurrentBitmapGeneration)
       throws IOException {
     FileBasedConfig repoConfig = repo.getConfig();
