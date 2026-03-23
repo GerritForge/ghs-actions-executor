@@ -1,12 +1,12 @@
 .PHONY: clean
 
-JGIT_REF=refs/changes/23/1231923/1
+JGIT_REF=refs/changes/57/1233557/2
 
 TARGET=bazel-bin/plugins/ghs-actions/executor/ghs-actions-executor.jar
 
 SRCS=$(wildcard plugins/ghs-actions-executor/src/**/*.java)
 
-JGIT_ORIGIN=https://eclipse.gerrithub.io/eclipse-jgit/jgit
+JGIT_ORIGIN=https://review.gerrithub.io/GerritForge/jgit
 
 build: ${TARGET}
 
