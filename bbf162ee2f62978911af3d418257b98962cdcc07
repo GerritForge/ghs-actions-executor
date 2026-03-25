@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "975d6c0b_6cbb2fa3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-03-25T14:41:10Z",
+      "side": 1,
+      "message": "Nit: use imperative form\n```suggestion\nIntroduce an action to delete the objects/pack/preserved directory\n```",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 10
+      },
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4525cc71_b9a50cee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-03-25T14:41:10Z",
+      "side": 1,
+      "message": "nit: Not necessarily created by `PreserveOutdatedBitmapsAction`, they could be there because of GC for example.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 41
+      },
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19661fca_dd8b785d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-03-25T14:41:10Z",
+      "side": 1,
+      "message": "Is it not risky to let GHS run this action at will?\n\nThe very reason we store packfiles to the `preserved` directory is to avoid their immediate, abrupt deletion, preventing stale file handles errors that are pointed to by the Jgit cache.\n\nIf an external GC process was being executed with `--preserve-old-packs` for example with the intention of preserving packfiles (and maybe only later calling `--prune-preserved`), this action would cause the **immediate** removal of those packs instead.\n\nThe same would apply for `PreserveOutdatedBitmapsAction`.\n* T0 - move packfiles to preserved.\n* T1 - Delete preserved.\n\nIf T1 and T2 are temporarily very close to each other, what\u0027s the point of moving packfiles to `preserved` in the first place?\n\nMaybe this is not a discussion for this change. maybe this should be discussed when we wire the action in GHS.\n\nOr perhaps we should give the ability to this action to leave untouched preserved files that have only recently being created?\n\nThoughts?",
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
