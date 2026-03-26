@@ -24,6 +24,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "963c7577_fce8583a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-03-26T12:02:45Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "975d6c0b_6cbb2fa3",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 10
+      },
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4525cc71_b9a50cee",
@@ -77,6 +101,24 @@
       "writtenOn": "2026-03-26T07:33:49Z",
       "side": 1,
       "message": "Wrong license: GHS is *NOT* open-source.\n\nI see that the problem is widespread. I\u0027ll upload a new fix to adjust the other headers as well.",
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76932394_d6b0db18",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/DeletePreservedPacksAction.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-03-26T12:02:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62c4d31d_8aa6c67b",
       "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
