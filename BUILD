@@ -19,7 +19,7 @@ java_binary(
     resources = ["src/main/resources/log4j.properties"],
     deps = [
         ":ghs-actions-executor_lib",
-        "@flogger//jar",
+        "//lib/flogger:api",
     ],
 )
 
