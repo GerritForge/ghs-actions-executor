@@ -62,6 +62,74 @@
       "message": "Is it not risky to let GHS run this action at will?\n\nThe very reason we store packfiles to the `preserved` directory is to avoid their immediate, abrupt deletion, preventing stale file handles errors that are pointed to by the Jgit cache.\n\nIf an external GC process was being executed with `--preserve-old-packs` for example with the intention of preserving packfiles (and maybe only later calling `--prune-preserved`), this action would cause the **immediate** removal of those packs instead.\n\nThe same would apply for `PreserveOutdatedBitmapsAction`.\n* T0 - move packfiles to preserved.\n* T1 - Delete preserved.\n\nIf T1 and T2 are temporarily very close to each other, what\u0027s the point of moving packfiles to `preserved` in the first place?\n\nMaybe this is not a discussion for this change. maybe this should be discussed when we wire the action in GHS.\n\nOr perhaps we should give the ability to this action to leave untouched preserved files that have only recently being created?\n\nThoughts?",
       "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62c4d31d_8aa6c67b",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/DeletePreservedPacksAction.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-26T07:33:49Z",
+      "side": 1,
+      "message": "Wrong license: GHS is *NOT* open-source.\n\nI see that the problem is widespread. I\u0027ll upload a new fix to adjust the other headers as well.",
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe145de8_74b0dbda",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/DeletePreservedPacksAction.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-26T07:33:49Z",
+      "side": 1,
+      "message": "We should add a short-circuit if the `preserved` directory doesn\u0027t exist.",
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96fe58ef_b67a0588",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/DeletePreservedPacksAction.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-26T07:33:49Z",
+      "side": 1,
+      "message": "This is wrong: we don\u0027t want to delete *everything* but only the oldest files, given an expiry time, pretty much like we do with the `pruneExpire` settings in JGit.",
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c55a5f93_46a6d83a",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/DeletePreservedPacksAction.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-26T07:33:49Z",
+      "side": 1,
+      "message": "Maybe also indicate how many files were deleted?",
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
