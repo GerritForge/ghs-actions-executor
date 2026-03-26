@@ -117,6 +117,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c8f46c83_86493db7",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/DeletePreservedPacksAction.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-03-26T08:48:22Z",
+      "side": 1,
+      "message": "\u003e we don\u0027t want to delete everything but only the oldest files, given an expiry time, pretty much like we do with the pruneExpire settings in JGit.\n\n+1\n\nShould we honour the `pruneExpire` settings? Or do we want the action to be independent from the GC settings? I believe the latter.",
+      "parentUuid": "96fe58ef_b67a0588",
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c55a5f93_46a6d83a",
         "filename": "src/main/java/com/gerritforge/ghs/actions/DeletePreservedPacksAction.java",
         "patchSetId": 2
@@ -128,6 +146,47 @@
       "writtenOn": "2026-03-26T07:33:49Z",
       "side": 1,
       "message": "Maybe also indicate how many files were deleted?",
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e75c9c4_0eb7e5a4",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/DeletePreservedPacksAction.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-03-26T08:48:22Z",
+      "side": 1,
+      "message": "Once we honour the `pruneExpire` I would also add something like `older than $preserved` in the log.",
+      "parentUuid": "c55a5f93_46a6d83a",
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13202481_f267fccc",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/DeletePreservedPacksAction.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-03-26T08:48:22Z",
+      "side": 1,
+      "message": "You are not deleting the whole directory.",
+      "range": {
+        "startLine": 32,
+        "startChar": 11,
+        "endLine": 32,
+        "endChar": 38
+      },
       "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
@@ -180,6 +239,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "77a22a5d_d338ddf1",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/DeletePreservedPacksActionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-03-26T08:48:22Z",
+      "side": 1,
+      "message": "I believe this test doesn\u0027t need it since the directory is present to start with (see assertion at L27). However, it should be added in the other tests.",
+      "parentUuid": "a44d1ccd_7da0b671",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 3
+      },
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bda63342_3a314c3e",
         "filename": "src/test/java/com/gerritforge/ghs/actions/DeletePreservedPacksActionTest.java",
         "patchSetId": 2
@@ -191,6 +274,74 @@
       "writtenOn": "2026-03-26T07:42:48Z",
       "side": 1,
       "message": "Are you testing the line above?",
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bf75822_9cdc40c5",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/DeletePreservedPacksActionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-03-26T08:48:22Z",
+      "side": 1,
+      "message": "I don\u0027t think you want to remove the directory if it is empty. Just leave it there. External maintenance processes might use it.",
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a45602ba_f4d6021e",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/DeletePreservedPacksActionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-03-26T08:48:22Z",
+      "side": 1,
+      "message": "Why do we need 2 ?",
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb47e72d_708c3781",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/DeletePreservedPacksActionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-03-26T08:48:22Z",
+      "side": 1,
+      "message": "I don\u0027t think you want to remove the directory if it is empty. Just leave it there. External maintenance processes might use it.",
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ee274b9_79d3926c",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/DeletePreservedPacksActionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1012541
+      },
+      "writtenOn": "2026-03-26T08:48:22Z",
+      "side": 1,
+      "message": "I don\u0027t think you want to remove the directory if it is empty. Just leave it there. External maintenance processes might use it.",
       "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
