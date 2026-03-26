@@ -16,6 +16,24 @@
       "message": "nit: might be worth adding a note saying `1233552` is a private change",
       "revId": "a583de8e2225824e8534ca89142d6cb6a91418e3",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "060a943e_3920dd09",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-26T08:30:05Z",
+      "side": 1,
+      "message": "No, the change is not private.",
+      "parentUuid": "693a5c76_ed422aa4",
+      "revId": "a583de8e2225824e8534ca89142d6cb6a91418e3",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
