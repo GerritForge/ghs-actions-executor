@@ -130,6 +130,69 @@
       "message": "Maybe also indicate how many files were deleted?",
       "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d1e8c81_88aac2d2",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/DeletePreservedPacksActionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-26T07:42:48Z",
+      "side": 1,
+      "message": "You can dry this out with an internal `assertIsSuccessful(result)`",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 47
+      },
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a44d1ccd_7da0b671",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/DeletePreservedPacksActionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-26T07:42:48Z",
+      "side": 1,
+      "message": "Are you checking that the directory has been removed? The action should never ever remove the directory but only cleanup the old files.",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 3
+      },
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bda63342_3a314c3e",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/DeletePreservedPacksActionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2026-03-26T07:42:48Z",
+      "side": 1,
+      "message": "Are you testing the line above?",
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
