@@ -211,6 +211,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "adfc8301_22d90eac",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/DeletePreservedPacksAction.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-03-31T15:48:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16424b01_3d57e9a1",
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c55a5f93_46a6d83a",
@@ -311,6 +329,48 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24472d5f_e1945642",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/DeletePreservedPacksAction.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-03-31T15:48:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4eda57f0_40219139",
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "518bec95_b3b497d7",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/DeletePreservedPacksAction.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-03-31T15:48:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7044a3fd_48dadd23",
+      "range": {
+        "startLine": 32,
+        "startChar": 11,
+        "endLine": 32,
+        "endChar": 38
+      },
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d1e8c81_88aac2d2",
@@ -381,6 +441,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9411a2f_f39ad425",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/DeletePreservedPacksActionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-03-31T15:48:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77a22a5d_d338ddf1",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 3
+      },
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bda63342_3a314c3e",
@@ -394,6 +478,24 @@
       "writtenOn": "2026-03-26T07:42:48Z",
       "side": 1,
       "message": "Are you testing the line above?",
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56188eba_400033d8",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/DeletePreservedPacksActionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-03-31T15:48:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bda63342_3a314c3e",
       "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
@@ -433,6 +535,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ea95341_23ff31be",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/DeletePreservedPacksActionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-03-31T15:48:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bea73eaf_7dd63a4f",
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a45602ba_f4d6021e",
@@ -446,6 +566,24 @@
       "writtenOn": "2026-03-26T08:48:22Z",
       "side": 1,
       "message": "Why do we need 2 ?",
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf17bed1_11236620",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/DeletePreservedPacksActionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-03-31T15:48:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a45602ba_f4d6021e",
       "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
@@ -485,6 +623,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b2c3ea5_f2ea3f1b",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/DeletePreservedPacksActionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-03-31T15:48:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c13dd3e6_5df82e73",
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ee274b9_79d3926c",
@@ -516,6 +672,24 @@
       "side": 1,
       "message": "JGit seems to delete the whole repository when prunePreserved is enabled, so I thought of keeping the same behaviour.",
       "parentUuid": "1ee274b9_79d3926c",
+      "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12d5db8f_69481d36",
+        "filename": "src/test/java/com/gerritforge/ghs/actions/DeletePreservedPacksActionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-03-31T15:48:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8369598_d91f81e2",
       "revId": "bbf162ee2f62978911af3d418257b98962cdcc07",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
