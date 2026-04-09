@@ -24,6 +24,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9497911_45d2217b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-04-09T13:25:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40c5687b_d7fc30ac",
+      "range": {
+        "startLine": 10,
+        "startChar": 10,
+        "endLine": 10,
+        "endChar": 60
+      },
+      "revId": "10975117272497e9d6da760de9bb49d647328c42",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1aa0d97b_32619b36",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-04-09T13:01:42Z",
       "side": 1,
       "message": "unused",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 40
+      },
+      "revId": "10975117272497e9d6da760de9bb49d647328c42",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b250243_cea21f22",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/DeletePreservedPacksAction.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-04-09T13:25:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1aa0d97b_32619b36",
       "range": {
         "startLine": 39,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95cf835b_2ba95b9e",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/DeletePreservedPacksAction.java",
+        "patchSetId": 25
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-04-09T13:25:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6083dcd2_2e4aaac5",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 21
+      },
+      "revId": "10975117272497e9d6da760de9bb49d647328c42",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6f9a23fe_72c9659b",
@@ -83,6 +155,30 @@
       "writtenOn": "2026-04-09T13:02:49Z",
       "side": 1,
       "message": "to",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 3
+      },
+      "revId": "10975117272497e9d6da760de9bb49d647328c42",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da7260e1_cab92b58",
+        "filename": "src/main/resources/config.md",
+        "patchSetId": 25
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-04-09T13:25:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f9a23fe_72c9659b",
       "range": {
         "startLine": 8,
         "startChar": 0,
