@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40c5687b_d7fc30ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1015244
+      },
+      "writtenOn": "2026-04-09T12:59:24Z",
+      "side": 1,
+      "message": "Let\u0027s be clear here on what we mean by \"older\". Claryfing that we mean Modified time (how long the file existed for), not how long it stayed in the `preserved` directory for.",
+      "range": {
+        "startLine": 10,
+        "startChar": 10,
+        "endLine": 10,
+        "endChar": 60
+      },
+      "revId": "10975117272497e9d6da760de9bb49d647328c42",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
