@@ -24,6 +24,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6aebd1c2_091de245",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/DeletePreservedPacksAction.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-04-09T12:49:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "007e8486_7bcea340",
+      "range": {
+        "startLine": 79,
+        "startChar": 25,
+        "endLine": 79,
+        "endChar": 48
+      },
+      "revId": "8db3b67a5fa26c3d49814a7d5a6403ee6de7ea6a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75c3c704_bfbb668c",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-04-09T10:24:24Z",
       "side": 1,
       "message": "I am not sure about this.\n\nDo we want to remove the preserved packfile based on when it was _placed_ into the `preserved` directory or based on its _age_ (as in, when it was created)?\n\nImagine we have an old packfile in `object/pack` with these stats:\n\n```\nstat -f \"atime: %Sa%nmtime: %Sm%nctime: %Sc%nbirth: %SB\" pack-123.pack\natime: Feb 27 12:25:04 2026\nmtime: Feb 27 12:25:04 2026\nctime: Feb 27 12:25:04 2026\nbirth: Feb 27 12:25:04 2026\n```\n\nThen we run\n\n```\njgit-7.0.0.sh gc --preserve-oldpacks\n```\n\nNow the `preserved` directory is created and the packfile is moved into it.\nIf we look at the stats of the preserved packfile we now get:\n\n```\nstat -f \"atime: %Sa%nmtime: %Sm%nctime: %Sc%nbirth: %SB\" pack-123.old-pack\natime: Feb 27 12:25:04 2026\nmtime: Feb 27 12:25:04 2026\nctime: Apr  9 12:11:30 2026 \u003c--- !!!\nbirth: Feb 27 12:25:04 2026\n```\n\nNote how only the metadata of the file changed (the `ctime`). `mtime` stays the same, because the _content_ of the file is the same.\n\nIf we prune the preserved directory based on `modification time`, we are likely going to target preserved packfiles that will **immediately** qualify for removal: \n\nSince they are in the preserved directory chances are that they were created more than 2 hours ago, for example.\n\nShould we not apply the prunePreservedExpire on the time _they were preserved_, rather than the time they were `created`?\n\nEither way I think this should be documented properly.\n\nThoughts?",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 78
+      },
+      "revId": "8db3b67a5fa26c3d49814a7d5a6403ee6de7ea6a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60380569_29017ffa",
+        "filename": "src/main/java/com/gerritforge/ghs/actions/DeletePreservedPacksAction.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-04-09T12:49:14Z",
+      "side": 1,
+      "message": "Thanks for pointing this out, great insight.\n\nAs discussed I\u0027ve documented that this setting should be set higher than prunePackExpire.",
+      "parentUuid": "75c3c704_bfbb668c",
       "range": {
         "startLine": 106,
         "startChar": 0,
@@ -93,6 +141,54 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10884865_035551fd",
+        "filename": "src/main/resources/config.md",
+        "patchSetId": 23
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-04-09T12:49:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c025b7e3_33dde29a",
+      "range": {
+        "startLine": 3,
+        "startChar": 59,
+        "endLine": 3,
+        "endChar": 82
+      },
+      "revId": "8db3b67a5fa26c3d49814a7d5a6403ee6de7ea6a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e21df4d_e24ec957",
+        "filename": "src/main/resources/config.md",
+        "patchSetId": 23
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-04-09T12:49:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e2cf9c1_eebc3978",
+      "range": {
+        "startLine": 3,
+        "startChar": 59,
+        "endLine": 3,
+        "endChar": 82
+      },
+      "revId": "8db3b67a5fa26c3d49814a7d5a6403ee6de7ea6a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0cc9c16b_1d8db2ea",
@@ -139,6 +235,54 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fda6795c_634b25e4",
+        "filename": "src/main/resources/config.md",
+        "patchSetId": 23
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-04-09T12:49:14Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "0cc9c16b_1d8db2ea",
+      "range": {
+        "startLine": 4,
+        "startChar": 55,
+        "endLine": 4,
+        "endChar": 64
+      },
+      "revId": "8db3b67a5fa26c3d49814a7d5a6403ee6de7ea6a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d95297ac_978501ad",
+        "filename": "src/main/resources/config.md",
+        "patchSetId": 23
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-04-09T12:49:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "287b73ef_d5236be4",
+      "range": {
+        "startLine": 4,
+        "startChar": 100,
+        "endLine": 4,
+        "endChar": 113
+      },
+      "revId": "8db3b67a5fa26c3d49814a7d5a6403ee6de7ea6a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d40d55b7_7f02b086",
@@ -152,6 +296,30 @@
       "writtenOn": "2026-04-09T10:24:24Z",
       "side": 1,
       "message": "Can you give some examples on how to configure it so that people will use the `seconds.ago` syntax (similar to [1], for example).\n\n[1] https://git-scm.com/docs/git-gc#Documentation/git-gc.txt-gcpruneExpire",
+      "range": {
+        "startLine": 6,
+        "startChar": 16,
+        "endLine": 6,
+        "endChar": 63
+      },
+      "revId": "8db3b67a5fa26c3d49814a7d5a6403ee6de7ea6a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad334984_e72c0a39",
+        "filename": "src/main/resources/config.md",
+        "patchSetId": 23
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1020677
+      },
+      "writtenOn": "2026-04-09T12:49:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d40d55b7_7f02b086",
       "range": {
         "startLine": 6,
         "startChar": 16,
